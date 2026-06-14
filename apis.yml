@@ -1,129 +1,122 @@
 name: SushiSwap
-description: >-
-  SushiSwap is a multi-chain decentralized exchange (DEX) protocol offering
-  REST APIs for accessing liquidity pools, token prices, swap quotes, trading
-  routes, and exchange analytics across 30+ blockchain networks. The Sushi API
-  suite enables developers to integrate token pricing, generate swap quotes, and
-  execute on-chain transactions programmatically via a unified base URL with
-  per-chain routing.
+description: SushiSwap is a multi-chain decentralized exchange (DEX) protocol offering
+  REST APIs for accessing liquidity pools, token prices, swap quotes, trading routes,
+  and exchange analytics across 30+ blockchain networks. The Sushi API suite enables
+  developers to integrate token pricing, generate swap quotes, and execute on-chain
+  transactions programmatically via a unified base URL with per-chain routing.
 image: https://sushi.com/favicon.ico
 url: https://www.sushi.com
 tags:
-  - DeFi
-  - Decentralized Exchange
-  - DEX
-  - Cryptocurrency
-  - Web3
-  - Blockchain
-  - Multi-Chain
-  - Liquidity
-  - Swap
-  - Token Pricing
+- DeFi
+- Decentralized Exchange
+- DEX
+- Cryptocurrency
+- Web3
+- Blockchain
+- Multi-Chain
+- Liquidity
+- Swap
+- Token Pricing
 created: '2026-06-13'
 modified: '2026-06-13'
 specificationVersion: '0.19'
 apis:
-  - name: Sushi Price API
-    description: >-
-      Returns token prices in USD across multiple chains. Provides both
-      aggregate price maps for all tokens on a given chain and individual token
-      price lookups by contract address.
-    image: https://sushi.com/favicon.ico
-    humanURL: https://docs.sushi.com/api/examples/swap
-    baseURL: https://api.sushi.com/price/v1
-    tags:
-      - Token Pricing
-      - USD
-      - Multi-Chain
-    properties:
-      - type: Documentation
-        url: https://docs.sushi.com/api/examples/swap
-      - type: OpenAPI
-        url: https://docs.sushi.com/blade-v2-openapi.json
-    contact:
-      - FN: Sushi Labs
-        url: https://www.sushi.com
-        email: ''
-
-  - name: Sushi Quote API
-    description: >-
-      Generates swap quotes for a given token pair and amount on a specified
-      chain. Returns estimated output amounts, price impact, and routing
-      information without committing to an on-chain transaction.
-    image: https://sushi.com/favicon.ico
-    humanURL: https://docs.sushi.com/api/examples/quote
-    baseURL: https://api.sushi.com/quote/v7
-    tags:
-      - Quote
-      - Swap
-      - Price Impact
-      - Routing
-    properties:
-      - type: Documentation
-        url: https://docs.sushi.com/api/examples/quote
-      - type: OpenAPI
-        url: https://docs.sushi.com/blade-v2-openapi.json
-    contact:
-      - FN: Sushi Labs
-        url: https://www.sushi.com
-        email: ''
-
-  - name: Sushi Swap API
-    description: >-
-      Generates complete swap transaction call data ready for on-chain execution.
-      Integrates liquidity from Sushi V2/V3, Uniswap V2/V3, Curve, Algebra,
-      Quickswap, Pancake, Camelot, and other sources via the Route Processor 4
-      (RP4) aggregator across 30+ EVM networks and Stellar.
-    image: https://sushi.com/favicon.ico
-    humanURL: https://docs.sushi.com/api/examples/swap
-    baseURL: https://api.sushi.com/swap/v7
-    tags:
-      - Swap
-      - DEX Aggregator
-      - Liquidity
-      - Multi-Chain
-      - Transaction
-    properties:
-      - type: Documentation
-        url: https://docs.sushi.com/api/examples/swap
-      - type: OpenAPI
-        url: https://docs.sushi.com/blade-v2-openapi.json
-      - type: Portal
-        url: https://sushi.com/portal
-    contact:
-      - FN: Sushi Labs
-        url: https://www.sushi.com
-        email: ''
-
-common:
-  - type: Portal
-    url: https://sushi.com/portal
+- name: Sushi Price API
+  description: Returns token prices in USD across multiple chains. Provides both aggregate
+    price maps for all tokens on a given chain and individual token price lookups
+    by contract address.
+  image: https://sushi.com/favicon.ico
+  humanURL: https://docs.sushi.com/api/examples/swap
+  baseURL: https://api.sushi.com/price/v1
+  tags:
+  - Token Pricing
+  - USD
+  - Multi-Chain
+  properties:
   - type: Documentation
-    url: https://docs.sushi.com
+    url: https://docs.sushi.com/api/examples/swap
   - type: OpenAPI
     url: https://docs.sushi.com/blade-v2-openapi.json
-  - type: Plans
-    url: https://sushi.com/portal/pricing
-  - type: GitHubOrganization
-    url: https://github.com/sushiswap
-  - type: PrivacyPolicy
-    url: https://www.sushi.com/privacy
-  - type: TermsOfService
-    url: https://www.sushi.com/terms
-  - type: Blog
-    url: https://www.sushi.com/blog
-  - type: Discord
-    url: https://discord.gg/NVPXN4e
-  - type: Twitter
-    url: https://twitter.com/sushiswap
-  - type: RateLimits
-    url: /rate-limits/rate-limits.md
-  - type: Plans
-    url: /plans/plans.md
-  - type: FinOps
-    url: /finops/finops.md
-
+  - url: graphql/sushiswap-graphql.md
+    type: GraphQL
+  contact:
+  - FN: Sushi Labs
+    url: https://www.sushi.com
+    email: ''
+- name: Sushi Quote API
+  description: Generates swap quotes for a given token pair and amount on a specified
+    chain. Returns estimated output amounts, price impact, and routing information
+    without committing to an on-chain transaction.
+  image: https://sushi.com/favicon.ico
+  humanURL: https://docs.sushi.com/api/examples/quote
+  baseURL: https://api.sushi.com/quote/v7
+  tags:
+  - Quote
+  - Swap
+  - Price Impact
+  - Routing
+  properties:
+  - type: Documentation
+    url: https://docs.sushi.com/api/examples/quote
+  - type: OpenAPI
+    url: https://docs.sushi.com/blade-v2-openapi.json
+  contact:
+  - FN: Sushi Labs
+    url: https://www.sushi.com
+    email: ''
+- name: Sushi Swap API
+  description: Generates complete swap transaction call data ready for on-chain execution.
+    Integrates liquidity from Sushi V2/V3, Uniswap V2/V3, Curve, Algebra, Quickswap,
+    Pancake, Camelot, and other sources via the Route Processor 4 (RP4) aggregator
+    across 30+ EVM networks and Stellar.
+  image: https://sushi.com/favicon.ico
+  humanURL: https://docs.sushi.com/api/examples/swap
+  baseURL: https://api.sushi.com/swap/v7
+  tags:
+  - Swap
+  - DEX Aggregator
+  - Liquidity
+  - Multi-Chain
+  - Transaction
+  properties:
+  - type: Documentation
+    url: https://docs.sushi.com/api/examples/swap
+  - type: OpenAPI
+    url: https://docs.sushi.com/blade-v2-openapi.json
+  - type: Portal
+    url: https://sushi.com/portal
+  contact:
+  - FN: Sushi Labs
+    url: https://www.sushi.com
+    email: ''
+common:
+- type: Portal
+  url: https://sushi.com/portal
+- type: Documentation
+  url: https://docs.sushi.com
+- type: OpenAPI
+  url: https://docs.sushi.com/blade-v2-openapi.json
+- type: Plans
+  url: https://sushi.com/portal/pricing
+- type: GitHubOrganization
+  url: https://github.com/sushiswap
+- type: PrivacyPolicy
+  url: https://www.sushi.com/privacy
+- type: TermsOfService
+  url: https://www.sushi.com/terms
+- type: Blog
+  url: https://www.sushi.com/blog
+- type: Discord
+  url: https://discord.gg/NVPXN4e
+- type: Twitter
+  url: https://twitter.com/sushiswap
+- type: RateLimits
+  url: /rate-limits/rate-limits.md
+- type: Plans
+  url: /plans/plans.md
+- type: FinOps
+  url: /finops/finops.md
 maintainers:
-  - FN: API Evangelist
-    url: https://apievangelist.com
-    email: info@apievangelist.com
+- FN: API Evangelist
+  url: https://apievangelist.com
+  email: info@apievangelist.com
