@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OnChainPoolResponse",
+  "type": "object",
+  "properties": {
+    "pool_type": {
+      "type": "string",
+      "enum": [
+        "onchain"
+      ],
+      "description": "Indicates this is on-chain pool data"
+    },
+    "pools": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/OnChainPoolData"
+      }
+    }
+  },
+  "required": [
+    "pool_type",
+    "pools"
+  ]
+}

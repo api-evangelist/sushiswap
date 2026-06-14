@@ -1,0 +1,32 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sushi": "https://www.sushi.com/vocab#",
+    "dex": "https://w3id.org/dex#",
+    "chainId": "sushi:chainId",
+    "tokenAddress": "sushi:tokenAddress",
+    "pool": "sushi:pool",
+    "quote": "sushi:quote",
+    "swap": "sushi:swap",
+    "price": "schema:price",
+    "liquidity": "sushi:liquidity",
+    "amountIn": "sushi:amountIn",
+    "amountOut": "sushi:amountOut",
+    "tokenIn": "sushi:tokenIn",
+    "tokenOut": "sushi:tokenOut",
+    "slippage": "sushi:slippage",
+    "priceImpact": "sushi:priceImpact",
+    "deadline": "sushi:deadline",
+    "recipient": "schema:recipient",
+    "sender": "schema:sender",
+    "calldata": "sushi:calldata",
+    "gasPrice": "sushi:gasPrice",
+    "OnChainPool": "sushi:OnChainPool",
+    "OffChainPool": "sushi:OffChainPool",
+    "Pair": "sushi:Pair",
+    "asset": "schema:Asset",
+    "routeProcessor": "sushi:routeProcessor",
+    "EIP2098Signature": "sushi:EIP2098Signature",
+    "RFQ": "sushi:RFQ"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DepositResponse",
+  "type": "object",
+  "properties": {
+    "sender": {
+      "type": "string",
+      "description": "The address of the user who initiated the deposit transaction."
+    },
+    "n_days": {
+      "type": "integer",
+      "description": "The number of days the assets will be locked in the pool, matching the `days_to_lock` from the request. Supported for all pools except Katana. For katana, returns `lock_time`."
+    },
+    "lock_time": {
+      "type": "integer",
+      "description": "The number of minutes the assets will be locked in the pool, matching the `lock_time` from the request. Only supported by the Katana pool. For other pools, returns `n_days`."
+    },
+    "good_until": {
+      "type": "integer",
+      "description": "The timestamp indicating how long the deposit details, including the signature, are valid."
+    },
+    "pool_tokens": {
+      "type": "string",
+      "description": "The total number of pool tokens that will be given to the user as a result of the deposit."
+    },
+    "signature": {
+      "$ref": "#/components/schemas/EIP2098Signature"
+    },
+    "clipper_exchange_address": {
+      "type": "string",
+      "description": "The address of the Blade exchange contract where the deposit is being made."
+    },
+    "deposit_amounts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "A list of the amounts to be deposited for each asset. If an asset was not provided in the request, the amount returned will be 0. For example, if 3 assets were provided in a 4-asset pool, the response will include an amount of 0 for the missing asset. For single asset deposit this field is not present"
+    },
+    "amount": {
+      "type": "string",
+      "description": "(Single-asset deposits only) The total amount of the single asset that is being deposited into the pool."
+    },
+    "token": {
+      "type": "string",
+      "description": "(Single-asset deposits only) The address of the token that is being deposited into the pool."
+    },
+    "extra_data": {
+      "type": "string",
+      "description": "Encode LP token price and prices list into ABI-compatible bytes. Only supported by the Katana pool."
+    }
+  },
+  "required": [
+    "sender",
+    "good_until",
+    "pool_tokens",
+    "signature",
+    "clipper_exchange_address"
+  ]
+}

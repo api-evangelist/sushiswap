@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OnChainPool",
+  "type": "object",
+  "properties": {
+    "chain_id": {
+      "type": "integer",
+      "description": "ID of the chain"
+    },
+    "address": {
+      "type": "string",
+      "description": "Blade contract address of the pool, is the address used when executing a transaction"
+    },
+    "num_assets": {
+      "type": "integer",
+      "description": "The total of assets available in the chain"
+    },
+    "pool_tokens": {
+      "type": "number",
+      "description": "The total number of pool tokens"
+    },
+    "value_in_usd": {
+      "type": "number",
+      "format": "float",
+      "description": "Value of the pool in USD"
+    },
+    "swaps_enabled": {
+      "type": "boolean",
+      "description": "Represents if the swaps are available for the chain"
+    }
+  },
+  "required": [
+    "chain_id",
+    "address",
+    "num_assets",
+    "pool_tokens",
+    "value_in_usd",
+    "swaps_enabled"
+  ]
+}

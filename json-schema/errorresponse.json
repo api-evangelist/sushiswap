@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ErrorResponse",
+  "type": "object",
+  "properties": {
+    "errorMessage": {
+      "type": "string",
+      "description": "Description of the error"
+    },
+    "errorType": {
+      "type": "string",
+      "description": "Type of the error"
+    },
+    "errorCode": {
+      "type": "integer",
+      "description": "Error code (returned only when we have a blade code for the error)"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Additional error data (returned only when the input data is invalid)"
+    }
+  },
+  "required": [
+    "errorMessage",
+    "errorType"
+  ]
+}

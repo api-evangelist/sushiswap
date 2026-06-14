@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SignRequest",
+  "type": "object",
+  "properties": {
+    "quote_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The id of the quote returned in quote endpoint",
+      "example": "4c707e45-7019-4b81-b875-c5eb6fe061d6"
+    },
+    "destination_address": {
+      "type": "string",
+      "description": "Address that will receive the output token",
+      "example": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+    },
+    "sender_address": {
+      "type": "string",
+      "description": "For DEX aggregator partners that are using their own smart contract to mediate the interaction between users and Blade. Aggregators should use the address of the account that they will pull tokens from (i.e., the EOA user address) as opposed to the address of their deployed contract. By default, `destination_address` will be used.",
+      "example": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+    },
+    "aux_data": {
+      "type": "string",
+      "description": "For use with the calldata swap feature, it can be set to any string and is used for identification purposes in the event logs. By default is` 0x436c697070657200000000000000000000000000000000000000000000000000` that is the representation of `Clipper`",
+      "example": "0x31494e4348000000000000000000000000000000000000000000000000000000",
+      "default": "0x436c697070657200000000000000000000000000000000000000000000000000"
+    },
+    "calldata": {
+      "type": "boolean",
+      "description": "Send this as true if we want to get the bytes representation of the swap in the response. Client can use this to be sent directly to the pool contract for execution.",
+      "default": false
+    },
+    "native_input": {
+      "type": "boolean",
+      "description": "If the input token is native (e.g. raw ETH), this value must be true. This will use the `sellEthForToken` contract function and will take the `msg.value` for the input. e.g `ETH -> USDC`. This field is mutually exclusive with `native_output`.",
+      "default": false
+    },
+    "native_output": {
+      "type": "boolean",
+      "description": "If the output token is native (i.e. raw ETH), this value must be true. This will use the `sellTokenForEth` contract function. e.g `USDC -> ETH`. This field is mutually exclusive with `native_input`.",
+      "default": false
+    }
+  },
+  "required": [
+    "quote_id",
+    "destination_address"
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "name": "SushiSwap API Vocabulary",
+  "description": "Vocabulary of terms used in SushiSwap Blade and Sushi APIs",
+  "version": "1.0.0",
+  "source": [
+    "https://docs.sushi.com/blade-v2-openapi.json",
+    "https://docs.sushi.com/openapi.yaml"
+  ],
+  "terms": [
+    {
+      "term": "chainId",
+      "definition": "The EVM-compatible blockchain network identifier (e.g., 1 for Ethereum mainnet)"
+    },
+    {
+      "term": "tokenAddress",
+      "definition": "The contract address of an ERC-20 token on the specified chain"
+    },
+    {
+      "term": "pool",
+      "definition": "A liquidity pool containing two assets used for token swaps"
+    },
+    {
+      "term": "quote",
+      "definition": "An estimated output amount and price impact for a given swap without on-chain execution"
+    },
+    {
+      "term": "swap",
+      "definition": "An on-chain token exchange transaction aggregating liquidity across multiple DEX protocols"
+    },
+    {
+      "term": "price",
+      "definition": "The USD value of a token as determined by on-chain liquidity sources"
+    },
+    {
+      "term": "liquidity",
+      "definition": "The total value of assets available in a pool for trading"
+    },
+    {
+      "term": "routeProcessor",
+      "definition": "The RP4 smart contract that aggregates and routes swaps across multiple DEX protocols"
+    },
+    {
+      "term": "slippage",
+      "definition": "The maximum acceptable difference between expected and actual trade price, expressed in basis points"
+    },
+    {
+      "term": "amountIn",
+      "definition": "The exact amount of the input token to be swapped"
+    },
+    {
+      "term": "amountOut",
+      "definition": "The estimated amount of the output token received from the swap"
+    },
+    {
+      "term": "tokenIn",
+      "definition": "The contract address of the input token to be sold"
+    },
+    {
+      "term": "tokenOut",
+      "definition": "The contract address of the output token to be purchased"
+    },
+    {
+      "term": "OnChainPool",
+      "definition": "A liquidity pool whose data is sourced directly from on-chain smart contracts"
+    },
+    {
+      "term": "OffChainPool",
+      "definition": "A liquidity pool whose data is sourced from off-chain RFQ (Request for Quote) providers"
+    },
+    {
+      "term": "RFQ",
+      "definition": "Request for Quote \u2014 an off-chain mechanism for obtaining swap prices from market makers"
+    },
+    {
+      "term": "EIP2098Signature",
+      "definition": "A compact 64-byte Ethereum signature format per EIP-2098, combining r, s, and v values"
+    },
+    {
+      "term": "Pair",
+      "definition": "A token pair consisting of two asset addresses representing a trading pair in a pool"
+    },
+    {
+      "term": "asset",
+      "definition": "A token or digital asset held in or traded through a liquidity pool"
+    },
+    {
+      "term": "priceImpact",
+      "definition": "The percentage change in token price caused by the size of a swap relative to pool liquidity"
+    },
+    {
+      "term": "deadline",
+      "definition": "A Unix timestamp after which a swap transaction will revert if not executed"
+    },
+    {
+      "term": "recipient",
+      "definition": "The wallet address that receives the output tokens from a swap"
+    },
+    {
+      "term": "sender",
+      "definition": "The wallet address initiating and funding the swap transaction"
+    },
+    {
+      "term": "calldata",
+      "definition": "The encoded transaction data passed to the Route Processor contract to execute a swap"
+    },
+    {
+      "term": "gasPrice",
+      "definition": "The gas cost estimate in wei for executing a swap transaction on the target chain"
+    }
+  ]
+}

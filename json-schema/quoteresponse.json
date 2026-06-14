@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QuoteResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Id of the quote, use this value when signing a quote"
+    },
+    "must_accept_by": {
+      "type": "string",
+      "description": "Human-readable UTC timestamp by which you must accept the quote and should be expected to be a short duration. If this time has passed already, request a new quote - the server will not sign a quote after must_accept_by has passed"
+    },
+    "good_until": {
+      "type": "integer",
+      "description": "number of seconds that quotes live"
+    },
+    "chain_id": {
+      "type": "integer",
+      "description": "Represents the ID of the chain"
+    },
+    "input_asset_address": {
+      "type": "string",
+      "description": "Contract address of the asset you want to provide for the swap"
+    },
+    "input_amount": {
+      "type": "string",
+      "description": "Amount of assets to be exchanged"
+    },
+    "output_asset_address": {
+      "type": "string",
+      "description": "Contract address of the asset you want to receive in the swap"
+    },
+    "output_amount": {
+      "type": "string",
+      "description": "Amount of assets you will receive in the exchange"
+    },
+    "input_value_in_usd": {
+      "type": "number",
+      "format": "float",
+      "description": "Amount in dollars to be exchanged"
+    },
+    "output_value_in_usd": {
+      "type": "number",
+      "format": "float",
+      "description": "Amount in dollars you will receive in the exchange"
+    },
+    "created_at": {
+      "type": "integer",
+      "description": "Unix Timestamp indicating the date and time when the quote was created"
+    },
+    "rate": {
+      "type": "number",
+      "format": "float",
+      "description": "swap rate"
+    }
+  },
+  "required": [
+    "id",
+    "must_accept_by",
+    "good_until",
+    "chain_id",
+    "input_asset_address",
+    "input_amount",
+    "output_asset_address",
+    "output_amount",
+    "input_value_in_usd",
+    "output_value_in_usd",
+    "created_at",
+    "rate"
+  ],
+  "example": {
+    "id": "05a51aa6-41b5-4c61-a452-f1b95d0d43e4",
+    "must_accept_by": "2023-10-13 22:24:20.932560+00:00",
+    "good_until": 1697235920,
+    "chain_id": 1,
+    "input_amount": "10000000000000000000",
+    "output_amount": "5661947917",
+    "input_value_in_usd": 15595.15,
+    "output_value_in_usd": 5668.12,
+    "created_at": 1697235848,
+    "rate": 566.1947917,
+    "input_asset_address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+    "output_asset_address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+  }
+}

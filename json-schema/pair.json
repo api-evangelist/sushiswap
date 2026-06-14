@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Pair",
+  "type": "object",
+  "properties": {
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Pair of assets available to make a swap - e.g: [\"ETH\", \"MATIC\"]"
+    },
+    "fee_in_basis_points": {
+      "type": "number",
+      "format": "float",
+      "description": "Fee for make a swap between the pair"
+    }
+  },
+  "required": [
+    "assets",
+    "fee_in_basis_points"
+  ]
+}

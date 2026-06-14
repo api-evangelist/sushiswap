@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OffChainPool",
+  "type": "object",
+  "properties": {
+    "chain_id": {
+      "type": "integer",
+      "description": "ID of the chain"
+    },
+    "address": {
+      "type": "string",
+      "description": "Blade contract address of the pool, is the address used when executing a transaction"
+    },
+    "num_assets": {
+      "type": "integer",
+      "description": "The total of assets available in the chain"
+    },
+    "k": {
+      "type": "number",
+      "format": "float",
+      "description": "K factor"
+    },
+    "time_in_seconds": {
+      "type": "integer",
+      "description": "Number of seconds were used to calculate the fees of a swap, this number indicates the number of seconds that quotes are live"
+    },
+    "default_time_in_seconds": {
+      "type": "integer",
+      "description": "Default number of seconds that quotes are live, is value used to calculate fees when don't send the query param time_in_seconds"
+    },
+    "swaps_enabled": {
+      "type": "boolean",
+      "description": "Represents if the swaps are available for the chain"
+    }
+  },
+  "required": [
+    "chain_id",
+    "address",
+    "num_assets",
+    "k",
+    "time_in_seconds",
+    "default_time_in_seconds",
+    "swaps_enabled"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OnChainAsset",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the asset, this value should be used when making a quote"
+    },
+    "address": {
+      "type": "string",
+      "description": "The contract address of the asset"
+    },
+    "balance": {
+      "type": "string",
+      "description": "The balance of the asset in the pool"
+    },
+    "price_in_usd": {
+      "type": "number",
+      "format": "float",
+      "description": "Current price in dollars for the asset"
+    },
+    "value_in_usd": {
+      "type": "number",
+      "format": "float",
+      "description": "Value of the pool in USD"
+    },
+    "target_value_in_usd": {
+      "type": "number",
+      "format": "float",
+      "description": "USD target value for this asset in the pool"
+    }
+  },
+  "required": [
+    "name",
+    "address",
+    "balance",
+    "price_in_usd",
+    "value_in_usd",
+    "target_value_in_usd"
+  ]
+}

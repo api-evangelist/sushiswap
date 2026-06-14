@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OffChainAsset",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the asset, this value should be used when making a quote"
+    },
+    "address": {
+      "type": "string",
+      "description": "The contract address of the asset"
+    },
+    "price_in_usd": {
+      "type": "number",
+      "format": "float",
+      "description": "Current price in dollars for the asset"
+    },
+    "listing_weight": {
+      "type": "integer",
+      "description": "asset weight within the pool"
+    }
+  },
+  "required": [
+    "name",
+    "address",
+    "price_in_usd",
+    "listing_weight"
+  ]
+}

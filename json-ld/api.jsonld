@@ -1,0 +1,49 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sushi": "https://www.sushi.com/vocab#"
+  },
+  "@type": "WebAPI",
+  "@id": "https://api.sushi.com",
+  "name": "SushiSwap API",
+  "description": "Multi-chain decentralized exchange (DEX) protocol offering REST APIs for liquidity pools, token prices, swap quotes, and trading routes across 30+ blockchain networks.",
+  "url": "https://www.sushi.com",
+  "documentation": "https://docs.sushi.com",
+  "termsOfService": "https://www.sushi.com/terms",
+  "provider": {
+    "@type": "Organization",
+    "name": "Sushi Labs",
+    "url": "https://www.sushi.com"
+  },
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Sushi Price API",
+      "description": "Returns token prices in USD across multiple chains",
+      "url": "https://api.sushi.com/price/v1"
+    },
+    {
+      "@type": "Offer",
+      "name": "Sushi Quote API",
+      "description": "Generates swap quotes for token pairs without on-chain execution",
+      "url": "https://api.sushi.com/quote/v7"
+    },
+    {
+      "@type": "Offer",
+      "name": "Sushi Swap API",
+      "description": "Generates complete swap transaction calldata for on-chain execution",
+      "url": "https://api.sushi.com/swap/v7"
+    },
+    {
+      "@type": "Offer",
+      "name": "Blade RFQ API",
+      "description": "Off-chain Request for Quote API for institutional liquidity",
+      "url": "https://blade-api.sushi.com/rfq/v2"
+    }
+  ],
+  "sameAs": [
+    "https://github.com/sushiswap",
+    "https://twitter.com/sushiswap",
+    "https://discord.gg/NVPXN4e"
+  ]
+}

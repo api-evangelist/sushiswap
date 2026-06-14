@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SignResponse",
+  "type": "object",
+  "properties": {
+    "chain_id": {
+      "type": "integer",
+      "description": "Represents the ID of the chain"
+    },
+    "input_asset_address": {
+      "type": "string",
+      "description": "Contract address of the asset you want to provide for the swap"
+    },
+    "output_asset_address": {
+      "type": "string",
+      "description": "Contract address of the asset you want to receive in the swap"
+    },
+    "input_amount": {
+      "type": "string",
+      "description": "Amount of assets to be exchanged"
+    },
+    "output_amount": {
+      "type": "string",
+      "description": "Amount of assets you will receive in the exchange"
+    },
+    "good_until": {
+      "type": "string",
+      "description": "Number of seconds that quotes live. It can also contained a packed representation of the state"
+    },
+    "destination_address": {
+      "type": "string",
+      "description": "Address will receive the output token"
+    },
+    "signature": {
+      "$ref": "#/components/schemas/EIP2098Signature"
+    },
+    "clipper_exchange_address": {
+      "type": "string",
+      "description": "Blade contract address of the pool, is the address used when executing a transaction"
+    },
+    "calldata": {
+      "type": "string",
+      "description": "Bytes representation of the swap function and parameters to be sent directly to the `clipper_exchange_address` for execution. Only present when `calldata=true` in request."
+    }
+  },
+  "required": [
+    "chain_id",
+    "input_asset_address",
+    "output_asset_address",
+    "input_amount",
+    "output_amount",
+    "good_until",
+    "destination_address",
+    "signature",
+    "clipper_exchange_address"
+  ]
+}

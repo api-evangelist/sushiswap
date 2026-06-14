@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OffChainPoolData",
+  "type": "object",
+  "properties": {
+    "pool": {
+      "$ref": "#/components/schemas/OffChainPool"
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/OffChainAsset"
+      }
+    },
+    "pairs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Pair"
+      }
+    }
+  },
+  "required": [
+    "pool",
+    "assets",
+    "pairs"
+  ]
+}

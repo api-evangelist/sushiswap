@@ -1,0 +1,485 @@
+[
+  {
+    "operation": "getPoolInfo",
+    "method": "GET",
+    "path": "/rfq/v2/pool/{chainId}",
+    "summary": "Get pool information",
+    "description": "This endpoint provides comprehensive information about all the pools on the selected chain, including details about its assets, the contract address of its liquidity pool, and other relevant data. This information is crucial for making off-chain calculations and predicting quotes.",
+    "tags": [
+      "Pool"
+    ],
+    "parameters": [
+      {
+        "name": "chainId",
+        "in": "path",
+        "description": "ID of the blockchain network",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        },
+        "example": 137
+      },
+      {
+        "name": "pool_address",
+        "in": "query",
+        "description": "The address of the pool. If not provided, all pools on the selected chain will be returned.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+      },
+      {
+        "name": "time_in_seconds",
+        "in": "query",
+        "description": "The time duration for which a quote will be available. This value is used to calculate the fees; as you decrease the time, you will see lower fees. By default, the system sets a predefined value. Note: For on-chain data, this field is not considered.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        },
+        "example": 30
+      },
+      {
+        "name": "fieldset",
+        "in": "query",
+        "description": "Determines whether the API should make calls to the blockchain to return on-chain data. If the parameter is not provided, it will default to handling on-chain data.",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "offchain-data"
+          ]
+        },
+        "example": "offchain-data"
+      }
+    ]
+  },
+  {
+    "operation": "generateQuote",
+    "method": "GET",
+    "path": "/rfq/v2/quote/{chainId}",
+    "summary": "Generate a quote",
+    "description": "This endpoint facilitates the creation of a potential quote for executing a swap between two assets. It allows users to obtain pricing information and other essential details necessary to initiate asset swaps within the system. Use this endpoint to explore the potential cost and feasibility of asset exchanges before finalizing transactions.",
+    "tags": [
+      "Quote"
+    ],
+    "parameters": [
+      {
+        "name": "chainId",
+        "in": "path",
+        "description": "ID of the blockchain network",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        },
+        "example": 137
+      },
+      {
+        "name": "pool_address",
+        "in": "query",
+        "description": "Address of the pool. If not present, the best pool will be calculated",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+      },
+      {
+        "name": "time_in_seconds",
+        "in": "query",
+        "description": "Amount of time between accepting a quote and receiving the quote on the blockchain. As this value increases, the quote will get worse for the user.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        },
+        "example": 30
+      },
+      {
+        "name": "output_amount",
+        "in": "query",
+        "description": "Desired quantity of assets to receive as part of the swap. This field is mutually exclusive with `input_amount`",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": "18000"
+      },
+      {
+        "name": "input_amount",
+        "in": "query",
+        "description": "Desired quantity of assets you are willing to exchange. This field is mutually exclusive with `output_amount`",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": "18000"
+      },
+      {
+        "name": "input_asset_symbol",
+        "in": "query",
+        "description": "Identifier of the asset you want to provide for the swap. Should correspond to the asset name returned from the pool call",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "ETH"
+      },
+      {
+        "name": "output_asset_symbol",
+        "in": "query",
+        "description": "Identifier of the asset you want to receive in the swap. Should correspond to the asset name returned from the pool call",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "DAI"
+      }
+    ]
+  },
+  {
+    "operation": "signQuote",
+    "method": "POST",
+    "path": "/rfq/sign",
+    "summary": "Sign a quote for swap execution",
+    "description": "This endpoint plays a pivotal role in the preparation and execution of secure asset swaps on the blockchain. By providing a Quote ID and a destination address, users can initiate the signing process, resulting in the generation of the essential signature and transaction data. This signature and data package, in turn, is integral for ensuring the validity and security of asset transfers within the blockchain network.",
+    "tags": [
+      "Quote"
+    ],
+    "parameters": []
+  },
+  {
+    "operation": "quoteAndSign",
+    "method": "GET",
+    "path": "/rfq/v2/quote-sign/{chainId}",
+    "summary": "Quote and sign in one request",
+    "description": "This endpoint streamlines the swap process by combining the quote generation and signing steps into a single request. Users can obtain real-time pricing information for an asset swap and simultaneously receive the required signature and transaction data for execution on the blockchain. This unified flow reduces latency, simplifies integration, and ensures secure, ready-to-broadcast transactions without the need for multiple API calls.",
+    "tags": [
+      "Quote"
+    ],
+    "parameters": [
+      {
+        "name": "chainId",
+        "in": "path",
+        "description": "ID of the blockchain network",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        },
+        "example": 137
+      },
+      {
+        "name": "pool_address",
+        "in": "query",
+        "description": "Address of the pool. If not present, the best pool will be calculated",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+      },
+      {
+        "name": "time_in_seconds",
+        "in": "query",
+        "description": "Amount of time between accepting a quote and receiving the quote on the blockchain. As this value increases, the quote will get worse for the user.",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        },
+        "example": 30
+      },
+      {
+        "name": "output_amount",
+        "in": "query",
+        "description": "Desired quantity of assets to receive as part of the swap. This field is mutually exclusive with `input_amount`",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": "18000"
+      },
+      {
+        "name": "input_amount",
+        "in": "query",
+        "description": "Desired quantity of assets you are willing to exchange. This field is mutually exclusive with `output_amount`",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": "18000"
+      },
+      {
+        "name": "input_asset_symbol",
+        "in": "query",
+        "description": "Identifier of the asset you want to provide for the swap. Should correspond to the asset name returned from the pool call",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "ETH"
+      },
+      {
+        "name": "output_asset_symbol",
+        "in": "query",
+        "description": "Identifier of the asset you want to receive in the swap. Should correspond to the asset name returned from the pool call",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "DAI"
+      },
+      {
+        "name": "destination_address",
+        "in": "query",
+        "description": "Address that will receive the output token",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+      },
+      {
+        "name": "sender_address",
+        "in": "query",
+        "description": "For DEX aggregator partners that are using their own smart contract to mediate the interaction between users and Blade. Aggregators should use the address of the account that they will pull tokens from (i.e., the EOA user address) as opposed to the address of their deployed contract. By default, `destination_address` will be used.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+      },
+      {
+        "name": "aux_data",
+        "in": "query",
+        "description": "For use with the calldata swap feature, it can be set to any string and is used for identification purposes in the event logs. By default is `0x436c697070657200000000000000000000000000000000000000000000000000` that is the representation of `Clipper`",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": "0x31494e4348000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "name": "calldata",
+        "in": "query",
+        "description": "Send this as true if we want to get the bytes representation of the swap in the response. Client can use this to be sent directly to the pool contract for execution.",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        },
+        "example": true
+      }
+    ]
+  },
+  {
+    "operation": "depositAssets",
+    "method": "POST",
+    "path": "/rfq/v2/deposit",
+    "summary": "Deposit assets into liquidity pool",
+    "description": "This endpoint allows users to deposit assets into a liquidity pool by submitting the required details, such as the pool contract address and the amount of assets to be deposited. This process is crucial for users who want to increase the liquidity of the pool and potentially earn rewards or fees. Use this endpoint to securely and efficiently add assets to the pool, contributing to the stability and performance of the ecosystem.",
+    "tags": [
+      "Deposit"
+    ],
+    "parameters": []
+  },
+  {
+    "operation": "quote",
+    "method": "GET",
+    "path": "/quote/v7/{chainId}",
+    "summary": "generates a quote",
+    "description": "By passing in the appropriate options, you can generate a swap quote\n",
+    "tags": [
+      "swap"
+    ],
+    "parameters": [
+      {
+        "$ref": "#/components/parameters/chainId"
+      },
+      {
+        "$ref": "#/components/parameters/referrer"
+      },
+      {
+        "$ref": "#/components/parameters/tokenIn"
+      },
+      {
+        "$ref": "#/components/parameters/tokenOut"
+      },
+      {
+        "$ref": "#/components/parameters/amount"
+      },
+      {
+        "$ref": "#/components/parameters/fee"
+      },
+      {
+        "$ref": "#/components/parameters/feeBy"
+      },
+      {
+        "$ref": "#/components/parameters/maxPriceImpact"
+      },
+      {
+        "$ref": "#/components/parameters/maxSlippage"
+      },
+      {
+        "$ref": "#/components/parameters/onlyDEX"
+      },
+      {
+        "$ref": "#/components/parameters/onlyPools"
+      },
+      {
+        "$ref": "#/components/parameters/excludeDEX"
+      },
+      {
+        "$ref": "#/components/parameters/excludePools"
+      },
+      {
+        "$ref": "#/components/parameters/excludeTokens"
+      },
+      {
+        "$ref": "#/components/parameters/visualize"
+      }
+    ]
+  },
+  {
+    "operation": "swap",
+    "method": "GET",
+    "path": "/swap/v7/{chainId}",
+    "summary": "generates a swap",
+    "description": "By passing in the appropriate options, you can generate a swap transaction\n",
+    "tags": [
+      "swap"
+    ],
+    "parameters": [
+      {
+        "$ref": "#/components/parameters/chainId"
+      },
+      {
+        "$ref": "#/components/parameters/referrer"
+      },
+      {
+        "$ref": "#/components/parameters/tokenIn"
+      },
+      {
+        "$ref": "#/components/parameters/tokenOut"
+      },
+      {
+        "$ref": "#/components/parameters/sender"
+      },
+      {
+        "$ref": "#/components/parameters/recipient"
+      },
+      {
+        "$ref": "#/components/parameters/amount"
+      },
+      {
+        "$ref": "#/components/parameters/fee"
+      },
+      {
+        "$ref": "#/components/parameters/feeReceiver"
+      },
+      {
+        "$ref": "#/components/parameters/feeBy"
+      },
+      {
+        "$ref": "#/components/parameters/maxPriceImpact"
+      },
+      {
+        "$ref": "#/components/parameters/maxSlippage"
+      },
+      {
+        "$ref": "#/components/parameters/source"
+      },
+      {
+        "$ref": "#/components/parameters/onlyDEX"
+      },
+      {
+        "$ref": "#/components/parameters/onlyPools"
+      },
+      {
+        "$ref": "#/components/parameters/excludeDEX"
+      },
+      {
+        "$ref": "#/components/parameters/excludePools"
+      },
+      {
+        "$ref": "#/components/parameters/excludeTokens"
+      },
+      {
+        "$ref": "#/components/parameters/visualize"
+      },
+      {
+        "$ref": "#/components/parameters/simulate"
+      },
+      {
+        "$ref": "#/components/parameters/override"
+      },
+      {
+        "$ref": "#/components/parameters/validate"
+      }
+    ]
+  },
+  {
+    "operation": "prices",
+    "method": "GET",
+    "path": "/price/v1/{chainId}",
+    "summary": "returns prices for specified chainId",
+    "description": "By passing in a chainId, you can get dollar prices for tokens addresses\n",
+    "tags": [
+      "price"
+    ],
+    "parameters": [
+      {
+        "$ref": "#/components/parameters/chainId"
+      }
+    ]
+  },
+  {
+    "operation": "price",
+    "method": "GET",
+    "path": "/price/v1/{chainId}/{tokenAddress}",
+    "summary": "returns price for specified chainId and token",
+    "description": "By passing in a chainId and address, you can get a dollar price for specified token address\n",
+    "tags": [
+      "price"
+    ],
+    "parameters": [
+      {
+        "$ref": "#/components/parameters/chainId"
+      },
+      {
+        "$ref": "#/components/parameters/tokenAddress"
+      }
+    ]
+  },
+  {
+    "operation": "token",
+    "method": "GET",
+    "path": "/token/v1/{chainId}/{tokenAddress}",
+    "summary": "returns token data for specified chainId and token",
+    "description": "By passing in a chainId and address, you can get token data for specified token address\n",
+    "tags": [
+      "token"
+    ],
+    "parameters": [
+      {
+        "$ref": "#/components/parameters/chainId"
+      },
+      {
+        "$ref": "#/components/parameters/tokenAddress"
+      }
+    ]
+  },
+  {
+    "operation": "getLiquidityProviders",
+    "method": "GET",
+    "path": "/liquidity-providers/v7/{chainId}",
+    "summary": "Returns all available liquidity providers for the specified chainId",
+    "description": "By passing in a chainId you can get the enabled liquidity providers.\n",
+    "tags": [
+      "liquidity-providers"
+    ],
+    "parameters": [
+      {
+        "$ref": "#/components/parameters/chainId"
+      }
+    ]
+  }
+]

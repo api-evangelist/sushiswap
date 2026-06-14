@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EIP2098Signature",
+  "type": "object",
+  "description": "A EIP 2098 'short signature' representation for the signature from the Blade Exchange server",
+  "properties": {
+    "v": {
+      "type": "integer",
+      "description": "Recovery identifier"
+    },
+    "r": {
+      "type": "string",
+      "description": "ECDSA signature r"
+    },
+    "s": {
+      "type": "string",
+      "description": "ECDSA signature s"
+    }
+  },
+  "required": [
+    "v",
+    "r",
+    "s"
+  ]
+}

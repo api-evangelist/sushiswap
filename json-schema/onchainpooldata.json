@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OnChainPoolData",
+  "type": "object",
+  "properties": {
+    "pool": {
+      "$ref": "#/components/schemas/OnChainPool"
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/OnChainAsset"
+      }
+    }
+  },
+  "required": [
+    "pool",
+    "assets"
+  ]
+}

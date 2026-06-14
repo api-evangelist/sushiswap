@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DepositRequest",
+  "type": "object",
+  "properties": {
+    "sender": {
+      "type": "string",
+      "description": "The address of the user initiating the deposit transaction.",
+      "example": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+    },
+    "pool_address": {
+      "type": "string",
+      "description": "The address of the pool",
+      "example": "0x989E8F547FbCa65f4FB0af41e50e4058e6c68166"
+    },
+    "days_to_lock": {
+      "type": "integer",
+      "description": "Number of days to lock the deposit in the liquidity pool. Required for all pools except Katana, which uses `lock_time` instead.",
+      "example": 5
+    },
+    "lock_time": {
+      "type": "integer",
+      "description": "Number of minutes to lock the deposit in the liquidity pool. Only supported by the Katana pool. For other pools, use `days_to_lock`.",
+      "example": 5
+    },
+    "deposit": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "An object containing the asset address and the amount to deposit as a string. The amount should be in its machine-readable form. This parameter is required only if `single_asset` is false.",
+      "example": {
+        "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599": "400000000",
+        "0x6B175474E89094C44Da98b954EedeAC495271d0F": "2000000000000000000",
+        "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2": "1000000000000000000",
+        "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48": "2000000"
+      }
+    },
+    "chain_id": {
+      "type": "integer",
+      "description": "The unique identifier of the blockchain network where the deposit will be made.",
+      "example": 1
+    },
+    "output_pool_tokens": {
+      "type": "integer",
+      "description": "The total number of pool tokens the user wants to receive. It is only valid for single-asset deposits.",
+      "example": 10000
+    },
+    "single_asset": {
+      "type": "boolean",
+      "description": "A boolean that indicates whether only one asset is being deposited.",
+      "default": false,
+      "example": true
+    },
+    "single_token": {
+      "type": "string",
+      "description": "Required only when `single_asset` is true. This represents the address of the single asset being deposited.",
+      "example": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599"
+    }
+  },
+  "required": [
+    "sender",
+    "pool_address",
+    "chain_id"
+  ]
+}
