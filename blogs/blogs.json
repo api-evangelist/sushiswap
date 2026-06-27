@@ -2,10 +2,18 @@
   "repo": "sushiswap",
   "feeds": [
     {
+      "source": "https://www.sushi.com/blog",
+      "feed_url": "",
+      "saved": 0,
+      "method": "agent-scrape"
+    },
+    {
       "source": "https://www.sushi.com/terms",
-      "error": "HTTPError"
+      "saved": 0,
+      "error": "not a blog feed"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T13:16:37Z",
+  "post_count": 9,
+  "agent_pulled": "2026-06-27"
 }
