@@ -90,6 +90,10 @@ apis:
     url: https://www.sushi.com
     email: ''
 common:
+- type: DomainSecurity
+  url: security/sushiswap-domain-security.yml
+- type: Authentication
+  url: authentication/sushiswap-authentication.yml
 - type: Portal
   url: https://sushi.com/portal
 - type: Documentation

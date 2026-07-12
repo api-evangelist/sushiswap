@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/blade-v2-openapi.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: API key required for all endpoints. In order to prevent abuse on the API we implement
+    rate limits on the requests, to overcome these limits as an aggregator get in contact with
+    the [support team](mailto:aggregators@shipyardsoftware.org) to get API credentials.
+  sources:
+  - openapi/blade-v2-openapi.json
