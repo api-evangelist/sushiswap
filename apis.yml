@@ -90,6 +90,8 @@ apis:
     url: https://www.sushi.com
     email: ''
 common:
+- type: AgenticAccess
+  url: agentic-access/sushiswap-agentic-access.yml
 - type: DomainSecurity
   url: security/sushiswap-domain-security.yml
 - type: Authentication
