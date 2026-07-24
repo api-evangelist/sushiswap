@@ -1,0 +1,650 @@
+openapi: 3.0.0
+info:
+  title: Blade Deposit Quote API
+  description: Documentation for interacting with the Blade API
+  version: 2.0.0
+  contact:
+    email: aggregators@shipyardsoftware.org
+    name: Blade API Support
+servers:
+- url: https://blade-api.sushi.com
+  description: Blade API Production Server
+security:
+- ApiKeyAuth: []
+tags:
+- name: Quote
+  description: Quote generation and signing
+paths:
+  /rfq/v2/quote/{chainId}:
+    get:
+      tags:
+      - Quote
+      summary: Generate a quote
+      description: This endpoint facilitates the creation of a potential quote for executing a swap between two assets. It allows users to obtain pricing information and other essential details necessary to initiate asset swaps within the system. Use this endpoint to explore the potential cost and feasibility of asset exchanges before finalizing transactions.
+      operationId: generateQuote
+      parameters:
+      - name: chainId
+        in: path
+        description: ID of the blockchain network
+        required: true
+        schema:
+          type: integer
+        example: 137
+      - name: pool_address
+        in: query
+        description: Address of the pool. If not present, the best pool will be calculated
+        required: false
+        schema:
+          type: string
+        example: '0x655eDCE464CC797526600a462A8154650EEe4B77'
+      - name: time_in_seconds
+        in: query
+        description: Amount of time between accepting a quote and receiving the quote on the blockchain. As this value increases, the quote will get worse for the user.
+        required: false
+        schema:
+          type: integer
+        example: 30
+      - name: output_amount
+        in: query
+        description: Desired quantity of assets to receive as part of the swap. This field is mutually exclusive with `input_amount`
+        required: false
+        schema:
+          type: string
+        example: '18000'
+      - name: input_amount
+        in: query
+        description: Desired quantity of assets you are willing to exchange. This field is mutually exclusive with `output_amount`
+        required: false
+        schema:
+          type: string
+        example: '18000'
+      - name: input_asset_symbol
+        in: query
+        description: Identifier of the asset you want to provide for the swap. Should correspond to the asset name returned from the pool call
+        required: true
+        schema:
+          type: string
+        example: ETH
+      - name: output_asset_symbol
+        in: query
+        description: Identifier of the asset you want to receive in the swap. Should correspond to the asset name returned from the pool call
+        required: true
+        schema:
+          type: string
+        example: DAI
+      responses:
+        '200':
+          description: Quote generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/QuoteProblems'
+        '422':
+          $ref: '#/components/responses/InvalidInputData'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ExternalServiceError'
+  /rfq/sign:
+    post:
+      tags:
+      - Quote
+      summary: Sign a quote for swap execution
+      description: This endpoint plays a pivotal role in the preparation and execution of secure asset swaps on the blockchain. By providing a Quote ID and a destination address, users can initiate the signing process, resulting in the generation of the essential signature and transaction data. This signature and data package, in turn, is integral for ensuring the validity and security of asset transfers within the blockchain network.
+      operationId: signQuote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignRequest'
+            examples:
+              without-calldata:
+                summary: Sign without calldata
+                description: Sign a quote and manually use the values in the response to create the transaction
+                value:
+                  destination_address: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
+                  quote_id: 4c707e45-7019-4b81-b875-c5eb6fe061d6
+              with-calldata:
+                summary: Sign with calldata
+                description: Sign a quote and get the bytes representation of the swap to be sent directly to the pool contract for execution
+                value:
+                  destination_address: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
+                  quote_id: 4c707e45-7019-4b81-b875-c5eb6fe061d6
+                  calldata: true
+                  aux_data: '0x31494e4348000000000000000000000000000000000000000000000000000000'
+              with-native-input:
+                summary: Sign with native input token
+                description: Sign a quote using native input token (e.g. raw ETH) and get the bytes representation of the swap
+                value:
+                  destination_address: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
+                  quote_id: 4c707e45-7019-4b81-b875-c5eb6fe061d6
+                  calldata: true
+                  aux_data: '0x31494e4348000000000000000000000000000000000000000000000000000000'
+                  native_input: true
+      responses:
+        '200':
+          description: Quote signed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignResponse'
+              examples:
+                without-calldata-response:
+                  summary: Sign Response without calldata
+                  description: Response when signing a quote without requesting calldata
+                  value:
+                    chain_id: 1
+                    input_asset_address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+                    output_asset_address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+                    input_amount: '10000000000000000000'
+                    output_amount: '5661947917'
+                    good_until: '364238673390486983853316167090878487969884185392043445686993915855904'
+                    destination_address: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
+                    signature:
+                      v: 28
+                      r: '0xfb8599e4ef2c89b03e1ebc3067f0ba38ecea64517bafa932e5c642318ec923d9'
+                      s: '0x1d3c7e38951b23bc459ac91ad668dede2a681bc4c98b915116983f4ae1dcdaa7'
+                    clipper_exchange_address: '0xE7b0CE0526fbE3969035a145C9e9691d4d9D216c'
+                with-calldata-response:
+                  summary: Sign Response with calldata
+                  description: Response when signing a quote with calldata for direct contract execution
+                  value:
+                    chain_id: 1
+                    input_asset_address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+                    output_asset_address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+                    input_amount: '10000000000000000000'
+                    output_amount: '5661947917'
+                    good_until: '364266596581665814407146313234570973398742125152679878859837657433201'
+                    destination_address: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
+                    signature:
+                      v: 28
+                      r: '0x762ad0475b3a7c42735686d7911f117a2ff6fca1bc3c5c75f4ee43df8da2a61b'
+                      s: '0x1eceffea0a50d12566e9fa6b4d9ed826106143d321389654c3c327c648f6f3f6'
+                    clipper_exchange_address: '0xE7b0CE0526fbE3969035a145C9e9691d4d9D216c'
+                    calldata: '0x2b651a6c000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb480000000000000000000000000000000000000000000000008ac7230489e8000000000000000000000000000000000000000000000000000000000001517a780d0000000d82eb0b930000000005f7906e00b1a2bc2ec50000006400bc6529c471000000000000000000000000960376b3f62f41e7e66809a05d1c5afdfd60a0e9000000000000000000000000000000000000000000000000000000000000001c762ad0475b3a7c42735686d7911f117a2ff6fca1bc3c5c75f4ee43df8da2a61b1eceffea0a50d12566e9fa6b4d9ed826106143d321389654c3c327c648f6f3f60000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000002031494e4348000000000000000000000000000000000000000000000000000000'
+                with-native-input-response:
+                  summary: Sign Response with native input
+                  description: Response when signing a quote with native input token (e.g. raw ETH)
+                  value:
+                    chain_id: 1
+                    input_asset_address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+                    output_asset_address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+                    input_amount: '10000000000000000000'
+                    output_amount: '5661947917'
+                    good_until: '364126526759930684504042968316937832960196094624343681678885719229598'
+                    destination_address: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
+                    signature:
+                      v: 28
+                      r: '0x1a8fc0856ff121e3ba5a244ee0837cef3d6c6ea96c593decc1b9d074c74c0139'
+                      s: '0x60bd1d8700fca625b58cbc4fe84c61b29bf46c9855146eda18da557ab0e079d5'
+                    clipper_exchange_address: '0xE7b0CE0526fbE3969035a145C9e9691d4d9D216c'
+                    calldata: '0x27a9b424000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb480000000000000000000000000000000000000000000000008ac7230489e8000000000000000000000000000000000000000000000000000000000001517a780d0000000d81968de90000000005f7911f00b1a2bc2ec50000006400bc6529c49e000000000000000000000000960376b3f62f41e7e66809a05d1c5afdfd60a0e9000000000000000000000000000000000000000000000000000000000000001c1a8fc0856ff121e3ba5a244ee0837cef3d6c6ea96c593decc1b9d074c74c013960bd1d8700fca625b58cbc4fe84c61b29bf46c9855146eda18da557ab0e079d50000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000002031494e4348000000000000000000000000000000000000000000000000000000'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/InvalidInputData'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ExternalServiceError'
+  /rfq/v2/quote-sign/{chainId}:
+    get:
+      tags:
+      - Quote
+      summary: Quote and sign in one request
+      description: This endpoint streamlines the swap process by combining the quote generation and signing steps into a single request. Users can obtain real-time pricing information for an asset swap and simultaneously receive the required signature and transaction data for execution on the blockchain. This unified flow reduces latency, simplifies integration, and ensures secure, ready-to-broadcast transactions without the need for multiple API calls.
+      operationId: quoteAndSign
+      parameters:
+      - name: chainId
+        in: path
+        description: ID of the blockchain network
+        required: true
+        schema:
+          type: integer
+        example: 137
+      - name: pool_address
+        in: query
+        description: Address of the pool. If not present, the best pool will be calculated
+        required: false
+        schema:
+          type: string
+        example: '0x655eDCE464CC797526600a462A8154650EEe4B77'
+      - name: time_in_seconds
+        in: query
+        description: Amount of time between accepting a quote and receiving the quote on the blockchain. As this value increases, the quote will get worse for the user.
+        required: false
+        schema:
+          type: integer
+        example: 30
+      - name: output_amount
+        in: query
+        description: Desired quantity of assets to receive as part of the swap. This field is mutually exclusive with `input_amount`
+        required: false
+        schema:
+          type: string
+        example: '18000'
+      - name: input_amount
+        in: query
+        description: Desired quantity of assets you are willing to exchange. This field is mutually exclusive with `output_amount`
+        required: false
+        schema:
+          type: string
+        example: '18000'
+      - name: input_asset_symbol
+        in: query
+        description: Identifier of the asset you want to provide for the swap. Should correspond to the asset name returned from the pool call
+        required: true
+        schema:
+          type: string
+        example: ETH
+      - name: output_asset_symbol
+        in: query
+        description: Identifier of the asset you want to receive in the swap. Should correspond to the asset name returned from the pool call
+        required: true
+        schema:
+          type: string
+        example: DAI
+      - name: destination_address
+        in: query
+        description: Address that will receive the output token
+        required: true
+        schema:
+          type: string
+        example: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
+      - name: sender_address
+        in: query
+        description: For DEX aggregator partners that are using their own smart contract to mediate the interaction between users and Blade. Aggregators should use the address of the account that they will pull tokens from (i.e., the EOA user address) as opposed to the address of their deployed contract. By default, `destination_address` will be used.
+        required: false
+        schema:
+          type: string
+        example: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
+      - name: aux_data
+        in: query
+        description: For use with the calldata swap feature, it can be set to any string and is used for identification purposes in the event logs. By default is `0x436c697070657200000000000000000000000000000000000000000000000000` that is the representation of `Clipper`
+        required: false
+        schema:
+          type: string
+        example: '0x31494e4348000000000000000000000000000000000000000000000000000000'
+      - name: calldata
+        in: query
+        description: Send this as true if we want to get the bytes representation of the swap in the response. Client can use this to be sent directly to the pool contract for execution.
+        required: false
+        schema:
+          type: boolean
+          default: false
+        example: true
+      responses:
+        '200':
+          description: Quote and signature generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteSignResponse'
+              examples:
+                quote-sign-response:
+                  summary: Quote Sign Response
+                  description: Combined quote and signature response for immediate swap execution
+                  value:
+                    chain_id: 1
+                    input_asset_address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+                    output_asset_address: '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+                    input_amount: '780000000000000'
+                    output_amount: '3504443835292476928'
+                    good_until: '451117153933605942738249439739673213871765011081718076541610938493960'
+                    destination_address: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
+                    signature:
+                      v: 28
+                      r: '0xb996d67a0f80da5322e0fba14afd82e63e51cfc9ed09cc3377e84c7dfd05f9a1'
+                      s: '0x378c0baaa171606042171fd8886ac007017854f98aa0a85b5ae0c9ce892f1aae'
+                    clipper_exchange_address: '0x655eDCE464CC797526600a462A8154650EEe4B77'
+                    id: 34ad40e0-b445-438a-94b7-3f82104d701e
+                    input_value_in_usd: 3.54
+                    output_value_in_usd: 3.5
+                    created_at: 1755212736
+                    rate: 4492.876711913433
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/QuoteProblems'
+        '422':
+          $ref: '#/components/responses/InvalidInputData'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ExternalServiceError'
+components:
+  schemas:
+    QuoteSignResponse:
+      type: object
+      properties:
+        chain_id:
+          type: integer
+          description: Represents the ID of the chain
+        input_asset_address:
+          type: string
+          description: Contract address of the asset you want to provide for the swap
+        output_asset_address:
+          type: string
+          description: Contract address of the asset you want to receive in the swap
+        input_amount:
+          type: string
+          description: Amount of assets to be exchanged
+        output_amount:
+          type: string
+          description: Amount of assets you will receive in the exchange
+        good_until:
+          type: string
+          description: Number of seconds that quotes live. It can also contained a packed representation of the state
+        destination_address:
+          type: string
+          description: Address will receive the output token
+        signature:
+          $ref: '#/components/schemas/EIP2098Signature'
+        clipper_exchange_address:
+          type: string
+          description: Blade contract address of the pool, is the address used when executing a transaction
+        calldata:
+          type: string
+          description: Bytes representation of the swap function and parameters to be sent directly to the `clipper_exchange_address` for execution. Only present when `calldata=true` in request.
+        id:
+          type: string
+          format: uuid
+          description: Internal identifier
+        input_value_in_usd:
+          type: number
+          format: float
+          description: Amount in dollars to be exchanged
+        output_value_in_usd:
+          type: number
+          format: float
+          description: Amount in dollars you will receive in the exchange
+        created_at:
+          type: integer
+          description: Unix Timestamp indicating the date and time when the quote was created
+        rate:
+          type: number
+          format: float
+          description: swap rate
+      required:
+      - chain_id
+      - input_asset_address
+      - output_asset_address
+      - input_amount
+      - output_amount
+      - good_until
+      - destination_address
+      - signature
+      - clipper_exchange_address
+      - id
+      - input_value_in_usd
+      - output_value_in_usd
+      - created_at
+      - rate
+    EIP2098Signature:
+      type: object
+      description: A EIP 2098 'short signature' representation for the signature from the Blade Exchange server
+      properties:
+        v:
+          type: integer
+          description: Recovery identifier
+        r:
+          type: string
+          description: ECDSA signature r
+        s:
+          type: string
+          description: ECDSA signature s
+      required:
+      - v
+      - r
+      - s
+    QuoteResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Id of the quote, use this value when signing a quote
+        must_accept_by:
+          type: string
+          description: Human-readable UTC timestamp by which you must accept the quote and should be expected to be a short duration. If this time has passed already, request a new quote - the server will not sign a quote after must_accept_by has passed
+        good_until:
+          type: integer
+          description: number of seconds that quotes live
+        chain_id:
+          type: integer
+          description: Represents the ID of the chain
+        input_asset_address:
+          type: string
+          description: Contract address of the asset you want to provide for the swap
+        input_amount:
+          type: string
+          description: Amount of assets to be exchanged
+        output_asset_address:
+          type: string
+          description: Contract address of the asset you want to receive in the swap
+        output_amount:
+          type: string
+          description: Amount of assets you will receive in the exchange
+        input_value_in_usd:
+          type: number
+          format: float
+          description: Amount in dollars to be exchanged
+        output_value_in_usd:
+          type: number
+          format: float
+          description: Amount in dollars you will receive in the exchange
+        created_at:
+          type: integer
+          description: Unix Timestamp indicating the date and time when the quote was created
+        rate:
+          type: number
+          format: float
+          description: swap rate
+      required:
+      - id
+      - must_accept_by
+      - good_until
+      - chain_id
+      - input_asset_address
+      - input_amount
+      - output_asset_address
+      - output_amount
+      - input_value_in_usd
+      - output_value_in_usd
+      - created_at
+      - rate
+      example:
+        id: 05a51aa6-41b5-4c61-a452-f1b95d0d43e4
+        must_accept_by: '2023-10-13 22:24:20.932560+00:00'
+        good_until: 1697235920
+        chain_id: 1
+        input_amount: '10000000000000000000'
+        output_amount: '5661947917'
+        input_value_in_usd: 15595.15
+        output_value_in_usd: 5668.12
+        created_at: 1697235848
+        rate: 566.1947917
+        input_asset_address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+        output_asset_address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+    SignResponse:
+      type: object
+      properties:
+        chain_id:
+          type: integer
+          description: Represents the ID of the chain
+        input_asset_address:
+          type: string
+          description: Contract address of the asset you want to provide for the swap
+        output_asset_address:
+          type: string
+          description: Contract address of the asset you want to receive in the swap
+        input_amount:
+          type: string
+          description: Amount of assets to be exchanged
+        output_amount:
+          type: string
+          description: Amount of assets you will receive in the exchange
+        good_until:
+          type: string
+          description: Number of seconds that quotes live. It can also contained a packed representation of the state
+        destination_address:
+          type: string
+          description: Address will receive the output token
+        signature:
+          $ref: '#/components/schemas/EIP2098Signature'
+        clipper_exchange_address:
+          type: string
+          description: Blade contract address of the pool, is the address used when executing a transaction
+        calldata:
+          type: string
+          description: Bytes representation of the swap function and parameters to be sent directly to the `clipper_exchange_address` for execution. Only present when `calldata=true` in request.
+      required:
+      - chain_id
+      - input_asset_address
+      - output_asset_address
+      - input_amount
+      - output_amount
+      - good_until
+      - destination_address
+      - signature
+      - clipper_exchange_address
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+          description: Description of the error
+        errorType:
+          type: string
+          description: Type of the error
+        errorCode:
+          type: integer
+          description: Error code (returned only when we have a blade code for the error)
+        data:
+          type: array
+          items:
+            type: object
+          description: Additional error data (returned only when the input data is invalid)
+      required:
+      - errorMessage
+      - errorType
+    SignRequest:
+      type: object
+      properties:
+        quote_id:
+          type: string
+          format: uuid
+          description: The id of the quote returned in quote endpoint
+          example: 4c707e45-7019-4b81-b875-c5eb6fe061d6
+        destination_address:
+          type: string
+          description: Address that will receive the output token
+          example: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
+        sender_address:
+          type: string
+          description: For DEX aggregator partners that are using their own smart contract to mediate the interaction between users and Blade. Aggregators should use the address of the account that they will pull tokens from (i.e., the EOA user address) as opposed to the address of their deployed contract. By default, `destination_address` will be used.
+          example: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
+        aux_data:
+          type: string
+          description: For use with the calldata swap feature, it can be set to any string and is used for identification purposes in the event logs. By default is` 0x436c697070657200000000000000000000000000000000000000000000000000` that is the representation of `Clipper`
+          example: '0x31494e4348000000000000000000000000000000000000000000000000000000'
+          default: '0x436c697070657200000000000000000000000000000000000000000000000000'
+        calldata:
+          type: boolean
+          description: Send this as true if we want to get the bytes representation of the swap in the response. Client can use this to be sent directly to the pool contract for execution.
+          default: false
+        native_input:
+          type: boolean
+          description: If the input token is native (e.g. raw ETH), this value must be true. This will use the `sellEthForToken` contract function and will take the `msg.value` for the input. e.g `ETH -> USDC`. This field is mutually exclusive with `native_output`.
+          default: false
+        native_output:
+          type: boolean
+          description: If the output token is native (i.e. raw ETH), this value must be true. This will use the `sellTokenForEth` contract function. e.g `USDC -> ETH`. This field is mutually exclusive with `native_input`.
+          default: false
+      required:
+      - quote_id
+      - destination_address
+  responses:
+    QuoteProblems:
+      description: Quote problems
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ExternalServiceError:
+      description: External Service Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InvalidInputData:
+      description: Invalid input data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errorMessage: Invalid input data
+            errorType: BadData
+            errorCode: 422
+            data:
+            - type: missing
+              loc:
+              - chain_id
+              msg: Field required
+              input:
+                input_amount: '18000'
+                input_asset_symbol: ETH
+                output_asset_symbol: WBTC
+                time_in_seconds: 60
+              url: https://errors.pydantic.dev/2.1/v/missing
+    Unauthorized:
+      description: Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errorMessage: 'Auth: Access is forbidden'
+            errorType: Forbidden
+    BadRequest:
+      description: Bad Request - Invalid data in the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden Error - Access denied
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key required for all endpoints. In order to prevent abuse on the API we implement rate limits on the requests, to overcome these limits as an aggregator get in contact with the [support team](mailto:aggregators@shipyardsoftware.org) to get API credentials.

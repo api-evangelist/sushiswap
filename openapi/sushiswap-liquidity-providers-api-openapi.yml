@@ -1,0 +1,69 @@
+openapi: 3.0.0
+info:
+  title: Blade Deposit liquidity-providers API
+  description: Documentation for interacting with the Blade API
+  version: 2.0.0
+  contact:
+    email: aggregators@shipyardsoftware.org
+    name: Blade API Support
+servers:
+- url: https://blade-api.sushi.com
+  description: Blade API Production Server
+security:
+- ApiKeyAuth: []
+tags:
+- name: liquidity-providers
+  description: All liquidity provider endpoints
+paths:
+  /liquidity-providers/v7/{chainId}:
+    get:
+      tags:
+      - liquidity-providers
+      summary: Returns all available liquidity providers for the specified chainId
+      operationId: getLiquidityProviders
+      description: 'By passing in a chainId you can get the enabled liquidity providers.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/chainId'
+      responses:
+        '200':
+          description: liquidity providers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example:
+                - UniswapV2
+                - SushiSwapV2
+                - PancakeSwap
+                - Elk
+                - Kwikswap
+                - ShibaSwap
+                - CroDefiSwap
+                - UniswapV3
+                - SushiSwapV3
+                - PancakeSwapV3
+                - Wagmi
+                - CurveSwap
+        '422':
+          description: request parameters invalid.
+        '500':
+          description: internal server error.
+components:
+  parameters:
+    chainId:
+      in: path
+      name: chainId
+      description: chainId
+      required: true
+      schema:
+        type: number
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key required for all endpoints. In order to prevent abuse on the API we implement rate limits on the requests, to overcome these limits as an aggregator get in contact with the [support team](mailto:aggregators@shipyardsoftware.org) to get API credentials.

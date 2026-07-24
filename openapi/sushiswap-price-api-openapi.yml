@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: Blade Deposit price API
+  description: Documentation for interacting with the Blade API
+  version: 2.0.0
+  contact:
+    email: aggregators@shipyardsoftware.org
+    name: Blade API Support
+servers:
+- url: https://blade-api.sushi.com
+  description: Blade API Production Server
+security:
+- ApiKeyAuth: []
+tags:
+- name: price
+  description: All price endpoints
+paths:
+  /price/v1/{chainId}:
+    get:
+      tags:
+      - price
+      summary: returns prices for specified chainId
+      operationId: prices
+      description: 'By passing in a chainId, you can get dollar prices for tokens addresses
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/chainId'
+      responses:
+        '200':
+          description: an address to price object map
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: number
+                example:
+                  '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2': 2360.066696167956
+        '422':
+          description: request parameters invalid
+        '500':
+          description: internal server error
+  /price/v1/{chainId}/{tokenAddress}:
+    get:
+      tags:
+      - price
+      summary: returns price for specified chainId and token
+      operationId: price
+      description: 'By passing in a chainId and address, you can get a dollar price for specified token address
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/chainId'
+      - $ref: '#/components/parameters/tokenAddress'
+      responses:
+        '200':
+          description: numerical price
+          content:
+            application/json:
+              schema:
+                type: number
+              example: 2360.066696167956
+        '422':
+          description: request parameters invalid
+        '500':
+          description: internal server error
+components:
+  parameters:
+    chainId:
+      in: path
+      name: chainId
+      description: chainId
+      required: true
+      schema:
+        type: number
+    tokenAddress:
+      in: path
+      name: tokenAddress
+      description: token address
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key required for all endpoints. In order to prevent abuse on the API we implement rate limits on the requests, to overcome these limits as an aggregator get in contact with the [support team](mailto:aggregators@shipyardsoftware.org) to get API credentials.
