@@ -1,0 +1,26 @@
+{
+  "provider": "sushiswap",
+  "sources": [
+    "sushiswap-deposit-api-openapi.yml",
+    "sushiswap-liquidity-providers-api-openapi.yml",
+    "sushiswap-pool-api-openapi.yml",
+    "sushiswap-price-api-openapi.yml",
+    "sushiswap-quote-api-openapi.yml",
+    "sushiswap-swap-api-openapi.yml",
+    "sushiswap-token-api-openapi.yml"
+  ],
+  "outputs": [
+    "sushiswap-deposit-api-openapi.yml",
+    "sushiswap-liquidity-providers-api-openapi.yml",
+    "sushiswap-pool-api-openapi.yml",
+    "sushiswap-price-api-openapi.yml",
+    "sushiswap-quote-api-openapi.yml",
+    "sushiswap-swap-api-openapi.yml",
+    "sushiswap-token-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
