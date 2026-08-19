@@ -1,0 +1,274 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blade Deposit swap API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "swap",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "generates a quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blade-api.sushi.com/quote/v7/:chainId",
+            "params": [
+              {
+                "name": "chainId",
+                "value": "",
+                "type": "path",
+                "description": "chainId"
+              },
+              {
+                "name": "referrer",
+                "value": "",
+                "type": "query",
+                "description": "referrer"
+              },
+              {
+                "name": "tokenIn",
+                "value": "",
+                "type": "query",
+                "description": "input token address"
+              },
+              {
+                "name": "tokenOut",
+                "value": "",
+                "type": "query",
+                "description": "output token address"
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query",
+                "description": "input token amount"
+              },
+              {
+                "name": "fee",
+                "value": "",
+                "type": "query",
+                "description": "amount of the fee, for example 0.0025 (0.25%)"
+              },
+              {
+                "name": "feeBy",
+                "value": "",
+                "type": "query",
+                "description": "if fee > 0 then which token to take fee from input or output"
+              },
+              {
+                "name": "maxPriceImpact",
+                "value": "",
+                "type": "query",
+                "description": "the max price impact for route planning. It's better to set it to a reasonable value, for example 1 (100%)"
+              },
+              {
+                "name": "maxSlippage",
+                "value": "",
+                "type": "query",
+                "description": "the max slippage for route execution, for example 0.005 (0.5%)"
+              },
+              {
+                "name": "onlyDEX",
+                "value": "",
+                "type": "query",
+                "description": "a list of DEX names separated by comma. If exists in the request then only pools from these DEXes are used in the response route. List of all supported DEXes can be obtained with /liquidity-provider request"
+              },
+              {
+                "name": "onlyPools",
+                "value": "",
+                "type": "query",
+                "description": "a list of pools addresses separated by comma. If exists in the request then only these pools are used in the response route"
+              },
+              {
+                "name": "excludeDEX",
+                "value": "",
+                "type": "query",
+                "description": "a list of DEX names separated by comma. If exists in the request then pools from these DEXes are excluded in the response route. List of all supported DEXes can be obtained with /liquidity-provider request"
+              },
+              {
+                "name": "excludePools",
+                "value": "",
+                "type": "query",
+                "description": "a list of pools addresses separated by comma. If exists in the request then these pools are excluded in the response route"
+              },
+              {
+                "name": "excludeTokens",
+                "value": "",
+                "type": "query",
+                "description": "a list of token addresses separated by comma. If exists in the request then pools with these tokens are excluded in the response route"
+              },
+              {
+                "name": "visualize",
+                "value": "",
+                "type": "query",
+                "description": "vizulaization"
+              }
+            ]
+          },
+          "docs": "By passing in the appropriate options, you can generate a swap quote\n"
+        },
+        {
+          "info": {
+            "name": "generates a swap",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blade-api.sushi.com/swap/v7/:chainId",
+            "params": [
+              {
+                "name": "chainId",
+                "value": "",
+                "type": "path",
+                "description": "chainId"
+              },
+              {
+                "name": "referrer",
+                "value": "",
+                "type": "query",
+                "description": "referrer"
+              },
+              {
+                "name": "tokenIn",
+                "value": "",
+                "type": "query",
+                "description": "input token address"
+              },
+              {
+                "name": "tokenOut",
+                "value": "",
+                "type": "query",
+                "description": "output token address"
+              },
+              {
+                "name": "sender",
+                "value": "",
+                "type": "query",
+                "description": "sender of transaction"
+              },
+              {
+                "name": "recipient",
+                "value": "",
+                "type": "query",
+                "description": "recipient of tokens, defaults to sender"
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query",
+                "description": "input token amount"
+              },
+              {
+                "name": "fee",
+                "value": "",
+                "type": "query",
+                "description": "amount of the fee, for example 0.0025 (0.25%)"
+              },
+              {
+                "name": "feeReceiver",
+                "value": "",
+                "type": "query",
+                "description": "if fee > 0 then receiver of the fee"
+              },
+              {
+                "name": "feeBy",
+                "value": "",
+                "type": "query",
+                "description": "if fee > 0 then which token to take fee from input or output"
+              },
+              {
+                "name": "maxPriceImpact",
+                "value": "",
+                "type": "query",
+                "description": "the max price impact for route planning. It's better to set it to a reasonable value, for example 1 (100%)"
+              },
+              {
+                "name": "maxSlippage",
+                "value": "",
+                "type": "query",
+                "description": "the max slippage for route execution, for example 0.005 (0.5%)"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "the source of router liquidity"
+              },
+              {
+                "name": "onlyDEX",
+                "value": "",
+                "type": "query",
+                "description": "a list of DEX names separated by comma. If exists in the request then only pools from these DEXes are used in the response route. List of all supported DEXes can be obtained with /liquidity-provider request"
+              },
+              {
+                "name": "onlyPools",
+                "value": "",
+                "type": "query",
+                "description": "a list of pools addresses separated by comma. If exists in the request then only these pools are used in the response route"
+              },
+              {
+                "name": "excludeDEX",
+                "value": "",
+                "type": "query",
+                "description": "a list of DEX names separated by comma. If exists in the request then pools from these DEXes are excluded in the response route. List of all supported DEXes can be obtained with /liquidity-provider request"
+              },
+              {
+                "name": "excludePools",
+                "value": "",
+                "type": "query",
+                "description": "a list of pools addresses separated by comma. If exists in the request then these pools are excluded in the response route"
+              },
+              {
+                "name": "excludeTokens",
+                "value": "",
+                "type": "query",
+                "description": "a list of token addresses separated by comma. If exists in the request then pools with these tokens are excluded in the response route"
+              },
+              {
+                "name": "visualize",
+                "value": "",
+                "type": "query",
+                "description": "vizulaization"
+              },
+              {
+                "name": "simulate",
+                "value": "",
+                "type": "query",
+                "description": "simulate"
+              },
+              {
+                "name": "override",
+                "value": "",
+                "type": "query",
+                "description": "uses state overrides to ensure simulation doesn't fail from sender not having balance and allowance"
+              },
+              {
+                "name": "validate",
+                "value": "",
+                "type": "query",
+                "description": "validate sender has balance & allowance of token if simulation fails"
+              }
+            ]
+          },
+          "docs": "By passing in the appropriate options, you can generate a swap transaction\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

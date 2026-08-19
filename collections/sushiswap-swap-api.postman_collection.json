@@ -1,0 +1,1317 @@
+{
+  "item": [
+    {
+      "id": "589fb54d-4f99-404a-9e76-150749ab08eb",
+      "name": "swap",
+      "description": {
+        "content": "All swap endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "26e47f39-4f46-4b9f-b9e6-d5e05ed75369",
+          "name": "generates a quote",
+          "request": {
+            "name": "generates a quote",
+            "description": {
+              "content": "By passing in the appropriate options, you can generate a swap quote\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "quote",
+                "v7",
+                ":chainId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "referrer",
+                  "value": "none",
+                  "description": "referrer"
+                },
+                {
+                  "disabled": false,
+                  "key": "tokenIn",
+                  "value": "<string>",
+                  "description": "(Required) input token address"
+                },
+                {
+                  "disabled": false,
+                  "key": "tokenOut",
+                  "value": "<string>",
+                  "description": "(Required) output token address"
+                },
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "<int256>",
+                  "description": "(Required) input token amount"
+                },
+                {
+                  "disabled": false,
+                  "key": "fee",
+                  "value": "0",
+                  "description": "amount of the fee, for example 0.0025 (0.25%)"
+                },
+                {
+                  "disabled": false,
+                  "key": "feeBy",
+                  "value": "output",
+                  "description": "if fee > 0 then which token to take fee from input or output"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxPriceImpact",
+                  "value": "1",
+                  "description": "the max price impact for route planning. It's better to set it to a reasonable value, for example 1 (100%)"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxSlippage",
+                  "value": "0.005",
+                  "description": "the max slippage for route execution, for example 0.005 (0.5%)"
+                },
+                {
+                  "disabled": false,
+                  "key": "onlyDEX",
+                  "value": "<string>",
+                  "description": "a list of DEX names separated by comma. If exists in the request then only pools from these DEXes are used in the response route. List of all supported DEXes can be obtained with /liquidity-provider request"
+                },
+                {
+                  "disabled": false,
+                  "key": "onlyPools",
+                  "value": "<string>",
+                  "description": "a list of pools addresses separated by comma. If exists in the request then only these pools are used in the response route"
+                },
+                {
+                  "disabled": false,
+                  "key": "excludeDEX",
+                  "value": "<string>",
+                  "description": "a list of DEX names separated by comma. If exists in the request then pools from these DEXes are excluded in the response route. List of all supported DEXes can be obtained with /liquidity-provider request"
+                },
+                {
+                  "disabled": false,
+                  "key": "excludePools",
+                  "value": "<string>",
+                  "description": "a list of pools addresses separated by comma. If exists in the request then these pools are excluded in the response route"
+                },
+                {
+                  "disabled": false,
+                  "key": "excludeTokens",
+                  "value": "<string>",
+                  "description": "a list of token addresses separated by comma. If exists in the request then pools with these tokens are excluded in the response route"
+                },
+                {
+                  "disabled": false,
+                  "key": "visualize",
+                  "value": "false",
+                  "description": "vizulaization"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "chainId",
+                  "description": "(Required) chainId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "769a7f92-806c-4d95-a3c4-ca3cbe134b27",
+              "name": "quote",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quote",
+                    "v7",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "referrer",
+                      "value": "none"
+                    },
+                    {
+                      "key": "tokenIn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tokenOut",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<int256>"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0"
+                    },
+                    {
+                      "key": "feeBy",
+                      "value": "output"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "1"
+                    },
+                    {
+                      "key": "maxSlippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "onlyDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyPools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludePools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeTokens",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "visualize",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "chainId",
+                      "description": "(Required) chainId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"Success\",\n  \"tokens\": [\n    {\n      \"address\": \"0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE\",\n      \"symbol\": \"ETH\",\n      \"name\": \"Ether\",\n      \"decimals\": 18\n    },\n    {\n      \"address\": \"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\n      \"symbol\": \"WETH\",\n      \"name\": \"Wrapped Ether\",\n      \"decimals\": 18\n    },\n    {\n      \"address\": \"0x6B3595068778DD592e39A122f4f5a5cF09C90fE2\",\n      \"symbol\": \"SUSHI\",\n      \"name\": \"SushiToken\",\n      \"decimals\": 18\n    }\n  ],\n  \"tokenFrom\": 0,\n  \"tokenTo\": 2,\n  \"swapPrice\": 2837.6709246572527,\n  \"priceImpact\": -0.002204113661183449,\n  \"amountIn\": \"10000000000000000\",\n  \"assumedAmountOut\": \"28376709246572527616\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bacdcde2-9aa5-4489-8182-048f39dfe560",
+              "name": "request parameters invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quote",
+                    "v7",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "referrer",
+                      "value": "none"
+                    },
+                    {
+                      "key": "tokenIn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tokenOut",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<int256>"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0"
+                    },
+                    {
+                      "key": "feeBy",
+                      "value": "output"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "1"
+                    },
+                    {
+                      "key": "maxSlippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "onlyDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyPools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludePools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeTokens",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "visualize",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "chainId",
+                      "description": "(Required) chainId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "367ae156-8989-4114-a329-9534830ec8f1",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quote",
+                    "v7",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "referrer",
+                      "value": "none"
+                    },
+                    {
+                      "key": "tokenIn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tokenOut",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<int256>"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0"
+                    },
+                    {
+                      "key": "feeBy",
+                      "value": "output"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "1"
+                    },
+                    {
+                      "key": "maxSlippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "onlyDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyPools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludePools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeTokens",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "visualize",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "chainId",
+                      "description": "(Required) chainId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "817109bf-fbe4-4830-bf5e-b43c827705bb",
+              "name": "server overloaded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quote",
+                    "v7",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "referrer",
+                      "value": "none"
+                    },
+                    {
+                      "key": "tokenIn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tokenOut",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<int256>"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0"
+                    },
+                    {
+                      "key": "feeBy",
+                      "value": "output"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "1"
+                    },
+                    {
+                      "key": "maxSlippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "onlyDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyPools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludePools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeTokens",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "visualize",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "chainId",
+                      "description": "(Required) chainId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "code": 529,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "184f02da-920a-4604-81aa-7b4ca52423f3",
+          "name": "generates a swap",
+          "request": {
+            "name": "generates a swap",
+            "description": {
+              "content": "By passing in the appropriate options, you can generate a swap transaction\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "swap",
+                "v7",
+                ":chainId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "referrer",
+                  "value": "none",
+                  "description": "referrer"
+                },
+                {
+                  "disabled": false,
+                  "key": "tokenIn",
+                  "value": "<string>",
+                  "description": "(Required) input token address"
+                },
+                {
+                  "disabled": false,
+                  "key": "tokenOut",
+                  "value": "<string>",
+                  "description": "(Required) output token address"
+                },
+                {
+                  "disabled": false,
+                  "key": "sender",
+                  "value": "<string>",
+                  "description": "(Required) sender of transaction"
+                },
+                {
+                  "disabled": false,
+                  "key": "recipient",
+                  "value": "<string>",
+                  "description": "recipient of tokens, defaults to sender"
+                },
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "<int256>",
+                  "description": "(Required) input token amount"
+                },
+                {
+                  "disabled": false,
+                  "key": "fee",
+                  "value": "0",
+                  "description": "amount of the fee, for example 0.0025 (0.25%)"
+                },
+                {
+                  "disabled": false,
+                  "key": "feeReceiver",
+                  "value": "<string>",
+                  "description": "if fee > 0 then receiver of the fee"
+                },
+                {
+                  "disabled": false,
+                  "key": "feeBy",
+                  "value": "output",
+                  "description": "if fee > 0 then which token to take fee from input or output"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxPriceImpact",
+                  "value": "1",
+                  "description": "the max price impact for route planning. It's better to set it to a reasonable value, for example 1 (100%)"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxSlippage",
+                  "value": "0.005",
+                  "description": "the max slippage for route execution, for example 0.005 (0.5%)"
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "sender",
+                  "description": "the source of router liquidity"
+                },
+                {
+                  "disabled": false,
+                  "key": "onlyDEX",
+                  "value": "<string>",
+                  "description": "a list of DEX names separated by comma. If exists in the request then only pools from these DEXes are used in the response route. List of all supported DEXes can be obtained with /liquidity-provider request"
+                },
+                {
+                  "disabled": false,
+                  "key": "onlyPools",
+                  "value": "<string>",
+                  "description": "a list of pools addresses separated by comma. If exists in the request then only these pools are used in the response route"
+                },
+                {
+                  "disabled": false,
+                  "key": "excludeDEX",
+                  "value": "<string>",
+                  "description": "a list of DEX names separated by comma. If exists in the request then pools from these DEXes are excluded in the response route. List of all supported DEXes can be obtained with /liquidity-provider request"
+                },
+                {
+                  "disabled": false,
+                  "key": "excludePools",
+                  "value": "<string>",
+                  "description": "a list of pools addresses separated by comma. If exists in the request then these pools are excluded in the response route"
+                },
+                {
+                  "disabled": false,
+                  "key": "excludeTokens",
+                  "value": "<string>",
+                  "description": "a list of token addresses separated by comma. If exists in the request then pools with these tokens are excluded in the response route"
+                },
+                {
+                  "disabled": false,
+                  "key": "visualize",
+                  "value": "false",
+                  "description": "vizulaization"
+                },
+                {
+                  "disabled": false,
+                  "key": "simulate",
+                  "value": "false",
+                  "description": "simulate"
+                },
+                {
+                  "disabled": false,
+                  "key": "override",
+                  "value": "false",
+                  "description": "uses state overrides to ensure simulation doesn't fail from sender not having balance and allowance"
+                },
+                {
+                  "disabled": false,
+                  "key": "validate",
+                  "value": "false",
+                  "description": "validate sender has balance & allowance of token if simulation fails"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "chainId",
+                  "description": "(Required) chainId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "75655165-b58d-417b-9b2b-44c765309195",
+              "name": "route data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "swap",
+                    "v7",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "referrer",
+                      "value": "none"
+                    },
+                    {
+                      "key": "tokenIn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tokenOut",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sender",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recipient",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<int256>"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0"
+                    },
+                    {
+                      "key": "feeReceiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "feeBy",
+                      "value": "output"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "1"
+                    },
+                    {
+                      "key": "maxSlippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "source",
+                      "value": "sender"
+                    },
+                    {
+                      "key": "onlyDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyPools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludePools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeTokens",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "visualize",
+                      "value": "false"
+                    },
+                    {
+                      "key": "simulate",
+                      "value": "false"
+                    },
+                    {
+                      "key": "override",
+                      "value": "false"
+                    },
+                    {
+                      "key": "validate",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "chainId",
+                      "description": "(Required) chainId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"Success\",\n  \"tokens\": [\n    {\n      \"address\": \"0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE\",\n      \"symbol\": \"ETH\",\n      \"name\": \"Ether\",\n      \"decimals\": 18\n    },\n    {\n      \"address\": \"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\n      \"symbol\": \"WETH\",\n      \"name\": \"Wrapped Ether\",\n      \"decimals\": 18\n    },\n    {\n      \"address\": \"0x6B3595068778DD592e39A122f4f5a5cF09C90fE2\",\n      \"symbol\": \"SUSHI\",\n      \"name\": \"SushiToken\",\n      \"decimals\": 18\n    }\n  ],\n  \"tokenFrom\": 0,\n  \"tokenTo\": 2,\n  \"swapPrice\": 2837.6709246572527,\n  \"priceImpact\": -0.002204113661183449,\n  \"amountIn\": \"10000000000000000\",\n  \"assumedAmountOut\": \"28376709246572527616\",\n  \"tx\": {\n    \"from\": 1.2380129724542482e+48,\n    \"to\": 9.83650862853668e+47,\n    \"gas\": \"162561\",\n    \"gasPrice\": 682394289,\n    \"data\": \"0x5f3bd1c8000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee000000000000000000000000000000000000000000000000002386f26fc10000000000000000000000000000d8da6bf26964af9d7eed9e03e53415d37aa960450000000000000000000000006b3595068778dd592e39a122f4f5a5cf09c90fe20000000000000000000000000000000000000000000000018969823f2df6281000000000000000000000000085cd07ea01423b1e937929b44e4ad8c40bbb5e7100000000000000000000000000000000000000000000000000000000000000e000000000000000000000000000000000000000000000000000000000000001a4dd9c5f96000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee000000000000000000000000000000000000000000000000002386f26fc100000000000000000000000000006b3595068778dd592e39a122f4f5a5cf09c90fe200000000000000000000000000000000000000000000000189ce52b6a87f80000000000000000000000000000000000000000000000000018969823f2df62810000000000000000000000000d8da6bf26964af9d7eed9e03e53415d37aa960450000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000700301ffff0201CE84867c3c02B05dc570d0135103d3fB9CC19433C02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc204C02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc200CE84867c3c02B05dc570d0135103d3fB9CC194330085CD07Ea01423b1E937929B44E4Ad8c40BbB5E71000bb80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\",\n    \"value\": \"10000000000000000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da7ef3eb-4377-4416-961d-243529660415",
+              "name": "request parameters invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "swap",
+                    "v7",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "referrer",
+                      "value": "none"
+                    },
+                    {
+                      "key": "tokenIn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tokenOut",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sender",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recipient",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<int256>"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0"
+                    },
+                    {
+                      "key": "feeReceiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "feeBy",
+                      "value": "output"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "1"
+                    },
+                    {
+                      "key": "maxSlippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "source",
+                      "value": "sender"
+                    },
+                    {
+                      "key": "onlyDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyPools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludePools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeTokens",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "visualize",
+                      "value": "false"
+                    },
+                    {
+                      "key": "simulate",
+                      "value": "false"
+                    },
+                    {
+                      "key": "override",
+                      "value": "false"
+                    },
+                    {
+                      "key": "validate",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "chainId",
+                      "description": "(Required) chainId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1cad2a73-92d1-49e9-9b73-35db9b8d2000",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "swap",
+                    "v7",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "referrer",
+                      "value": "none"
+                    },
+                    {
+                      "key": "tokenIn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tokenOut",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sender",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recipient",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<int256>"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0"
+                    },
+                    {
+                      "key": "feeReceiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "feeBy",
+                      "value": "output"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "1"
+                    },
+                    {
+                      "key": "maxSlippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "source",
+                      "value": "sender"
+                    },
+                    {
+                      "key": "onlyDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyPools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludePools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeTokens",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "visualize",
+                      "value": "false"
+                    },
+                    {
+                      "key": "simulate",
+                      "value": "false"
+                    },
+                    {
+                      "key": "override",
+                      "value": "false"
+                    },
+                    {
+                      "key": "validate",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "chainId",
+                      "description": "(Required) chainId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "19f3b874-2fb7-466c-8818-60a69116731f",
+              "name": "server overloaded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "swap",
+                    "v7",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "referrer",
+                      "value": "none"
+                    },
+                    {
+                      "key": "tokenIn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tokenOut",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sender",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recipient",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<int256>"
+                    },
+                    {
+                      "key": "fee",
+                      "value": "0"
+                    },
+                    {
+                      "key": "feeReceiver",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "feeBy",
+                      "value": "output"
+                    },
+                    {
+                      "key": "maxPriceImpact",
+                      "value": "1"
+                    },
+                    {
+                      "key": "maxSlippage",
+                      "value": "0.005"
+                    },
+                    {
+                      "key": "source",
+                      "value": "sender"
+                    },
+                    {
+                      "key": "onlyDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyPools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeDEX",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludePools",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludeTokens",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "visualize",
+                      "value": "false"
+                    },
+                    {
+                      "key": "simulate",
+                      "value": "false"
+                    },
+                    {
+                      "key": "override",
+                      "value": "false"
+                    },
+                    {
+                      "key": "validate",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "chainId",
+                      "description": "(Required) chainId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "code": 529,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://blade-api.sushi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f11f6725-35ec-4c5f-851b-581927ca1977",
+    "name": "Blade Deposit swap API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentation for interacting with the Blade API\n\nContact Support:\n Name: Blade API Support\n Email: aggregators@shipyardsoftware.org",
+      "type": "text/plain"
+    }
+  }
+}

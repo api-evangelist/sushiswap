@@ -1,0 +1,2044 @@
+{
+  "item": [
+    {
+      "id": "d0754942-02aa-463d-9ba4-f3fd549993b8",
+      "name": "Quote",
+      "description": {
+        "content": "Quote generation and signing",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "99e6cf26-c1d8-49b1-863d-863c3facc11e",
+          "name": "Generate a quote",
+          "request": {
+            "name": "Generate a quote",
+            "description": {
+              "content": "This endpoint facilitates the creation of a potential quote for executing a swap between two assets. It allows users to obtain pricing information and other essential details necessary to initiate asset swaps within the system. Use this endpoint to explore the potential cost and feasibility of asset exchanges before finalizing transactions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rfq",
+                "v2",
+                "quote",
+                ":chainId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pool_address",
+                  "value": "<string>",
+                  "description": "Address of the pool. If not present, the best pool will be calculated"
+                },
+                {
+                  "disabled": false,
+                  "key": "time_in_seconds",
+                  "value": "<integer>",
+                  "description": "Amount of time between accepting a quote and receiving the quote on the blockchain. As this value increases, the quote will get worse for the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "output_amount",
+                  "value": "<string>",
+                  "description": "Desired quantity of assets to receive as part of the swap. This field is mutually exclusive with `input_amount`"
+                },
+                {
+                  "disabled": false,
+                  "key": "input_amount",
+                  "value": "<string>",
+                  "description": "Desired quantity of assets you are willing to exchange. This field is mutually exclusive with `output_amount`"
+                },
+                {
+                  "disabled": false,
+                  "key": "input_asset_symbol",
+                  "value": "<string>",
+                  "description": "(Required) Identifier of the asset you want to provide for the swap. Should correspond to the asset name returned from the pool call"
+                },
+                {
+                  "disabled": false,
+                  "key": "output_asset_symbol",
+                  "value": "<string>",
+                  "description": "(Required) Identifier of the asset you want to receive in the swap. Should correspond to the asset name returned from the pool call"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "chainId",
+                  "description": "(Required) ID of the blockchain network"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a488909b-d86d-412b-8de2-1476b607416c",
+              "name": "Quote generated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"340e8bcc-981f-eae5-5b09-a4f621367db6\",\n  \"must_accept_by\": \"string\",\n  \"good_until\": 7641,\n  \"chain_id\": 3639,\n  \"input_asset_address\": \"string\",\n  \"input_amount\": \"string\",\n  \"output_asset_address\": \"string\",\n  \"output_amount\": \"string\",\n  \"input_value_in_usd\": 383.10877100091625,\n  \"output_value_in_usd\": 9416.059304779565,\n  \"created_at\": 7502,\n  \"rate\": 3594.8346042349544\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6795a2a-1665-4050-ac33-bf5329bf862b",
+              "name": "Bad Request - Invalid data in the request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 633\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f8ae8ee-be85-443b-b6d9-376baa737afb",
+              "name": "Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"Auth: Access is forbidden\",\n  \"errorType\": \"Forbidden\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac7d70d8-e3c6-47f7-a846-4d9aa59bec3d",
+              "name": "Forbidden Error - Access denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9908\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae690cf1-0e14-446f-9acd-6ba58a53451c",
+              "name": "Quote problems",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9908\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ba282b7-e44a-466e-b7f8-dba1202bc771",
+              "name": "Invalid input data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"Invalid input data\",\n  \"errorType\": \"BadData\",\n  \"errorCode\": 422,\n  \"data\": [\n    {\n      \"type\": \"missing\",\n      \"loc\": [\n        \"chain_id\"\n      ],\n      \"msg\": \"Field required\",\n      \"input\": {\n        \"input_amount\": \"18000\",\n        \"input_asset_symbol\": \"ETH\",\n        \"output_asset_symbol\": \"WBTC\",\n        \"time_in_seconds\": 60\n      },\n      \"url\": \"https://errors.pydantic.dev/2.1/v/missing\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f3f3d91-4b5e-4845-ad0c-18acc678ba70",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9908\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f78b4d5-a400-406e-a5b4-0a899a797d4f",
+              "name": "External Service Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9908\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "054ee43b-fec1-439b-8ad4-fbd8beb73786",
+          "name": "Sign a quote for swap execution",
+          "request": {
+            "name": "Sign a quote for swap execution",
+            "description": {
+              "content": "This endpoint plays a pivotal role in the preparation and execution of secure asset swaps on the blockchain. By providing a Quote ID and a destination address, users can initiate the signing process, resulting in the generation of the essential signature and transaction data. This signature and data package, in turn, is integral for ensuring the validity and security of asset transfers within the blockchain network.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rfq",
+                "sign"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"destination_address\": \"<string>\",\n  \"sender_address\": \"<string>\",\n  \"aux_data\": \"0x436c697070657200000000000000000000000000000000000000000000000000\",\n  \"calldata\": false,\n  \"native_input\": false,\n  \"native_output\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e7beba80-cbbb-40e7-a4a7-b5c9e14e80ab",
+              "name": "Quote signed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "sign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destination_address\": \"0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9\",\n  \"quote_id\": \"4c707e45-7019-4b81-b875-c5eb6fe061d6\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chain_id\": 1,\n  \"input_asset_address\": \"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\n  \"output_asset_address\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n  \"input_amount\": \"10000000000000000000\",\n  \"output_amount\": \"5661947917\",\n  \"good_until\": \"364238673390486983853316167090878487969884185392043445686993915855904\",\n  \"destination_address\": \"0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9\",\n  \"signature\": {\n    \"v\": 28,\n    \"r\": \"0xfb8599e4ef2c89b03e1ebc3067f0ba38ecea64517bafa932e5c642318ec923d9\",\n    \"s\": \"0x1d3c7e38951b23bc459ac91ad668dede2a681bc4c98b915116983f4ae1dcdaa7\"\n  },\n  \"clipper_exchange_address\": \"0xE7b0CE0526fbE3969035a145C9e9691d4d9D216c\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d928c3a5-369a-4a1a-9254-a02024b097e9",
+              "name": "Bad Request - Invalid data in the request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "sign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destination_address\": \"0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9\",\n  \"quote_id\": \"4c707e45-7019-4b81-b875-c5eb6fe061d6\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9908\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "698e0c5e-2d4f-46a4-a82c-0677d6479e2a",
+              "name": "Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "sign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destination_address\": \"0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9\",\n  \"quote_id\": \"4c707e45-7019-4b81-b875-c5eb6fe061d6\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"Auth: Access is forbidden\",\n  \"errorType\": \"Forbidden\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "598de4a8-bc88-4cd6-b1cc-915a334f5654",
+              "name": "Forbidden Error - Access denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "sign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destination_address\": \"0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9\",\n  \"quote_id\": \"4c707e45-7019-4b81-b875-c5eb6fe061d6\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9908\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6ec0fb3-b4f2-4c3b-b33e-a6cf45bfd721",
+              "name": "Invalid input data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "sign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destination_address\": \"0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9\",\n  \"quote_id\": \"4c707e45-7019-4b81-b875-c5eb6fe061d6\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"Invalid input data\",\n  \"errorType\": \"BadData\",\n  \"errorCode\": 422,\n  \"data\": [\n    {\n      \"type\": \"missing\",\n      \"loc\": [\n        \"chain_id\"\n      ],\n      \"msg\": \"Field required\",\n      \"input\": {\n        \"input_amount\": \"18000\",\n        \"input_asset_symbol\": \"ETH\",\n        \"output_asset_symbol\": \"WBTC\",\n        \"time_in_seconds\": 60\n      },\n      \"url\": \"https://errors.pydantic.dev/2.1/v/missing\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97c1210c-abea-4c8d-a585-9361e1c3e118",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "sign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destination_address\": \"0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9\",\n  \"quote_id\": \"4c707e45-7019-4b81-b875-c5eb6fe061d6\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9908\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8d6a65a-996a-4d9e-8afa-24ec025d5d40",
+              "name": "External Service Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "sign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destination_address\": \"0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9\",\n  \"quote_id\": \"4c707e45-7019-4b81-b875-c5eb6fe061d6\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9908\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b912a018-e512-4ec6-b911-7efb17007c05",
+          "name": "Quote and sign in one request",
+          "request": {
+            "name": "Quote and sign in one request",
+            "description": {
+              "content": "This endpoint streamlines the swap process by combining the quote generation and signing steps into a single request. Users can obtain real-time pricing information for an asset swap and simultaneously receive the required signature and transaction data for execution on the blockchain. This unified flow reduces latency, simplifies integration, and ensures secure, ready-to-broadcast transactions without the need for multiple API calls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rfq",
+                "v2",
+                "quote-sign",
+                ":chainId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pool_address",
+                  "value": "<string>",
+                  "description": "Address of the pool. If not present, the best pool will be calculated"
+                },
+                {
+                  "disabled": false,
+                  "key": "time_in_seconds",
+                  "value": "<integer>",
+                  "description": "Amount of time between accepting a quote and receiving the quote on the blockchain. As this value increases, the quote will get worse for the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "output_amount",
+                  "value": "<string>",
+                  "description": "Desired quantity of assets to receive as part of the swap. This field is mutually exclusive with `input_amount`"
+                },
+                {
+                  "disabled": false,
+                  "key": "input_amount",
+                  "value": "<string>",
+                  "description": "Desired quantity of assets you are willing to exchange. This field is mutually exclusive with `output_amount`"
+                },
+                {
+                  "disabled": false,
+                  "key": "input_asset_symbol",
+                  "value": "<string>",
+                  "description": "(Required) Identifier of the asset you want to provide for the swap. Should correspond to the asset name returned from the pool call"
+                },
+                {
+                  "disabled": false,
+                  "key": "output_asset_symbol",
+                  "value": "<string>",
+                  "description": "(Required) Identifier of the asset you want to receive in the swap. Should correspond to the asset name returned from the pool call"
+                },
+                {
+                  "disabled": false,
+                  "key": "destination_address",
+                  "value": "<string>",
+                  "description": "(Required) Address that will receive the output token"
+                },
+                {
+                  "disabled": false,
+                  "key": "sender_address",
+                  "value": "<string>",
+                  "description": "For DEX aggregator partners that are using their own smart contract to mediate the interaction between users and Blade. Aggregators should use the address of the account that they will pull tokens from (i.e., the EOA user address) as opposed to the address of their deployed contract. By default, `destination_address` will be used."
+                },
+                {
+                  "disabled": false,
+                  "key": "aux_data",
+                  "value": "<string>",
+                  "description": "For use with the calldata swap feature, it can be set to any string and is used for identification purposes in the event logs. By default is `0x436c697070657200000000000000000000000000000000000000000000000000` that is the representation of `Clipper`"
+                },
+                {
+                  "disabled": false,
+                  "key": "calldata",
+                  "value": "false",
+                  "description": "Send this as true if we want to get the bytes representation of the swap in the response. Client can use this to be sent directly to the pool contract for execution."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "chainId",
+                  "description": "(Required) ID of the blockchain network"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb1dcb9f-4573-4517-a702-04d223309487",
+              "name": "Quote and signature generated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote-sign",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "destination_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "sender_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "aux_data",
+                      "value": "0x31494e4348000000000000000000000000000000000000000000000000000000"
+                    },
+                    {
+                      "key": "calldata",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chain_id\": 1,\n  \"input_asset_address\": \"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\n  \"output_asset_address\": \"0x6B175474E89094C44Da98b954EedeAC495271d0F\",\n  \"input_amount\": \"780000000000000\",\n  \"output_amount\": \"3504443835292476928\",\n  \"good_until\": \"451117153933605942738249439739673213871765011081718076541610938493960\",\n  \"destination_address\": \"0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9\",\n  \"signature\": {\n    \"v\": 28,\n    \"r\": \"0xb996d67a0f80da5322e0fba14afd82e63e51cfc9ed09cc3377e84c7dfd05f9a1\",\n    \"s\": \"0x378c0baaa171606042171fd8886ac007017854f98aa0a85b5ae0c9ce892f1aae\"\n  },\n  \"clipper_exchange_address\": \"0x655eDCE464CC797526600a462A8154650EEe4B77\",\n  \"id\": \"34ad40e0-b445-438a-94b7-3f82104d701e\",\n  \"input_value_in_usd\": 3.54,\n  \"output_value_in_usd\": 3.5,\n  \"created_at\": 1755212736,\n  \"rate\": 4492.876711913433\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89a12e5f-0bab-4d81-8574-00713202eff5",
+              "name": "Bad Request - Invalid data in the request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote-sign",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "destination_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "sender_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "aux_data",
+                      "value": "0x31494e4348000000000000000000000000000000000000000000000000000000"
+                    },
+                    {
+                      "key": "calldata",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9908\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22b7d075-beab-418f-a202-e3bb76900238",
+              "name": "Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote-sign",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "destination_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "sender_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "aux_data",
+                      "value": "0x31494e4348000000000000000000000000000000000000000000000000000000"
+                    },
+                    {
+                      "key": "calldata",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"Auth: Access is forbidden\",\n  \"errorType\": \"Forbidden\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb25f803-1b1f-493b-b9ac-55f945b0f348",
+              "name": "Forbidden Error - Access denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote-sign",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "destination_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "sender_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "aux_data",
+                      "value": "0x31494e4348000000000000000000000000000000000000000000000000000000"
+                    },
+                    {
+                      "key": "calldata",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9908\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac951f1a-9205-4743-850c-e52e164d4509",
+              "name": "Quote problems",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote-sign",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "destination_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "sender_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "aux_data",
+                      "value": "0x31494e4348000000000000000000000000000000000000000000000000000000"
+                    },
+                    {
+                      "key": "calldata",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9908\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "761406e9-8172-40e6-8766-9eae7b42fb08",
+              "name": "Invalid input data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote-sign",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "destination_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "sender_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "aux_data",
+                      "value": "0x31494e4348000000000000000000000000000000000000000000000000000000"
+                    },
+                    {
+                      "key": "calldata",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"Invalid input data\",\n  \"errorType\": \"BadData\",\n  \"errorCode\": 422,\n  \"data\": [\n    {\n      \"type\": \"missing\",\n      \"loc\": [\n        \"chain_id\"\n      ],\n      \"msg\": \"Field required\",\n      \"input\": {\n        \"input_amount\": \"18000\",\n        \"input_asset_symbol\": \"ETH\",\n        \"output_asset_symbol\": \"WBTC\",\n        \"time_in_seconds\": 60\n      },\n      \"url\": \"https://errors.pydantic.dev/2.1/v/missing\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8304d580-fbb6-47d0-b6bc-70277a129b1a",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote-sign",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "destination_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "sender_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "aux_data",
+                      "value": "0x31494e4348000000000000000000000000000000000000000000000000000000"
+                    },
+                    {
+                      "key": "calldata",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9908\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4b54096-c34e-45fc-b13f-f651ef9fe8b7",
+              "name": "External Service Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "quote-sign",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "output_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_amount",
+                      "value": "18000"
+                    },
+                    {
+                      "key": "input_asset_symbol",
+                      "value": "ETH"
+                    },
+                    {
+                      "key": "output_asset_symbol",
+                      "value": "DAI"
+                    },
+                    {
+                      "key": "destination_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "sender_address",
+                      "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9"
+                    },
+                    {
+                      "key": "aux_data",
+                      "value": "0x31494e4348000000000000000000000000000000000000000000000000000000"
+                    },
+                    {
+                      "key": "calldata",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9908\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://blade-api.sushi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "68d8e0aa-44f4-4902-b913-e74f5a0f2fc1",
+    "name": "Blade Deposit Quote API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentation for interacting with the Blade API\n\nContact Support:\n Name: Blade API Support\n Email: aggregators@shipyardsoftware.org",
+      "type": "text/plain"
+    }
+  }
+}

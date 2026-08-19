@@ -1,0 +1,516 @@
+{
+  "item": [
+    {
+      "id": "089e3cc4-5249-4c46-8f05-33ca927f61f4",
+      "name": "Pool",
+      "description": {
+        "content": "Pool information and liquidity data endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "89312885-b04b-4f54-be5e-5579efe35a85",
+          "name": "Get pool information",
+          "request": {
+            "name": "Get pool information",
+            "description": {
+              "content": "This endpoint provides comprehensive information about all the pools on the selected chain, including details about its assets, the contract address of its liquidity pool, and other relevant data. This information is crucial for making off-chain calculations and predicting quotes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rfq",
+                "v2",
+                "pool",
+                ":chainId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pool_address",
+                  "value": "<string>",
+                  "description": "The address of the pool. If not provided, all pools on the selected chain will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_in_seconds",
+                  "value": "<integer>",
+                  "description": "The time duration for which a quote will be available. This value is used to calculate the fees; as you decrease the time, you will see lower fees. By default, the system sets a predefined value. Note: For on-chain data, this field is not considered."
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldset",
+                  "value": "<string>",
+                  "description": "Determines whether the API should make calls to the blockchain to return on-chain data. If the parameter is not provided, it will default to handling on-chain data."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "chainId",
+                  "description": "(Required) ID of the blockchain network"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cf9c1a7d-0a18-480f-b786-ce8ce016c726",
+              "name": "Pool information retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "pool",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "fieldset",
+                      "value": "offchain-data"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pool_type\": \"offchain\",\n  \"pools\": [\n    {\n      \"pool\": {\n        \"chain_id\": 1,\n        \"address\": \"0x655eDCE464CC797526600a462A8154650EEe4B77\",\n        \"num_assets\": 4,\n        \"k\": 0.06,\n        \"time_in_seconds\": 60,\n        \"default_time_in_seconds\": 60,\n        \"swaps_enabled\": true\n      },\n      \"assets\": [\n        {\n          \"name\": \"ETH\",\n          \"address\": \"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\n          \"price_in_usd\": 2076.799,\n          \"listing_weight\": 79\n        },\n        {\n          \"name\": \"USDC\",\n          \"address\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n          \"price_in_usd\": 1,\n          \"listing_weight\": 188\n        },\n        {\n          \"name\": \"USDT\",\n          \"address\": \"0xdAC17F958D2ee523a2206206994597C13D831ec7\",\n          \"price_in_usd\": 1,\n          \"listing_weight\": 305\n        },\n        {\n          \"name\": \"DAI\",\n          \"address\": \"0x6B175474E89094C44Da98b954EedeAC495271d0F\",\n          \"price_in_usd\": 1,\n          \"listing_weight\": 250\n        }\n      ],\n      \"pairs\": [\n        {\n          \"assets\": [\n            \"ETH\",\n            \"USDC\"\n          ],\n          \"fee_in_basis_points\": 9\n        },\n        {\n          \"assets\": [\n            \"ETH\",\n            \"USDT\"\n          ],\n          \"fee_in_basis_points\": 9\n        },\n        {\n          \"assets\": [\n            \"ETH\",\n            \"DAI\"\n          ],\n          \"fee_in_basis_points\": 8\n        },\n        {\n          \"assets\": [\n            \"USDC\",\n            \"USDT\"\n          ],\n          \"fee_in_basis_points\": 5\n        },\n        {\n          \"assets\": [\n            \"USDC\",\n            \"DAI\"\n          ],\n          \"fee_in_basis_points\": 5\n        },\n        {\n          \"assets\": [\n            \"USDT\",\n            \"DAI\"\n          ],\n          \"fee_in_basis_points\": 5\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00c1517a-b6fe-4403-90f0-134ef3de7bea",
+              "name": "Bad Request - Invalid data in the request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "pool",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "fieldset",
+                      "value": "offchain-data"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 7033\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2389dbfb-960d-4894-9f7e-7887bba29880",
+              "name": "Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "pool",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "fieldset",
+                      "value": "offchain-data"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"Auth: Access is forbidden\",\n  \"errorType\": \"Forbidden\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c043482c-516e-4e2b-ad01-2a84da7fe805",
+              "name": "Forbidden Error - Access denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "pool",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "fieldset",
+                      "value": "offchain-data"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 4308\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "855c13d0-670d-4972-85e0-ff00f921f1f4",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "pool",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "fieldset",
+                      "value": "offchain-data"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 4308\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8762e74-7f9c-4755-9bba-3204b8177719",
+              "name": "External Service Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "pool",
+                    ":chainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pool_address",
+                      "value": "0x655eDCE464CC797526600a462A8154650EEe4B77"
+                    },
+                    {
+                      "key": "time_in_seconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "fieldset",
+                      "value": "offchain-data"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "chainId",
+                      "description": "(Required) ID of the blockchain network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 4308\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://blade-api.sushi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "83ec2c23-fc39-4827-8ae0-9a130ac9ed63",
+    "name": "Blade Deposit Pool API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentation for interacting with the Blade API\n\nContact Support:\n Name: Blade API Support\n Email: aggregators@shipyardsoftware.org",
+      "type": "text/plain"
+    }
+  }
+}

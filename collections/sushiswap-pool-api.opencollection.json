@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blade Deposit Pool API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pool",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get pool information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blade-api.sushi.com/rfq/v2/pool/:chainId",
+            "params": [
+              {
+                "name": "chainId",
+                "value": "137",
+                "type": "path",
+                "description": "ID of the blockchain network"
+              },
+              {
+                "name": "pool_address",
+                "value": "0x655eDCE464CC797526600a462A8154650EEe4B77",
+                "type": "query",
+                "description": "The address of the pool. If not provided, all pools on the selected chain will be returned."
+              },
+              {
+                "name": "time_in_seconds",
+                "value": "30",
+                "type": "query",
+                "description": "The time duration for which a quote will be available. This value is used to calculate the fees; as you decrease the time, you will see lower fees. By default, the system sets a predefined value. Note: For on-chain data, this field is not considered."
+              },
+              {
+                "name": "fieldset",
+                "value": "offchain-data",
+                "type": "query",
+                "description": "Determines whether the API should make calls to the blockchain to return on-chain data. If the parameter is not provided, it will default to handling on-chain data."
+              }
+            ]
+          },
+          "docs": "This endpoint provides comprehensive information about all the pools on the selected chain, including details about its assets, the contract address of its liquidity pool, and other relevant data. This information is crucial for making off-chain calculations and predicting quotes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

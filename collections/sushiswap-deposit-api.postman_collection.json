@@ -1,0 +1,470 @@
+{
+  "item": [
+    {
+      "id": "0db58854-43c9-4564-a3f9-6c153168c68c",
+      "name": "Deposit",
+      "description": {
+        "content": "Liquidity pool deposit operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6fa51fee-96ad-4999-9bef-b7c680b1c193",
+          "name": "Deposit assets into liquidity pool",
+          "request": {
+            "name": "Deposit assets into liquidity pool",
+            "description": {
+              "content": "This endpoint allows users to deposit assets into a liquidity pool by submitting the required details, such as the pool contract address and the amount of assets to be deposited. This process is crucial for users who want to increase the liquidity of the pool and potentially earn rewards or fees. Use this endpoint to securely and efficiently add assets to the pool, contributing to the stability and performance of the ecosystem.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rfq",
+                "v2",
+                "deposit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sender\": \"<string>\",\n  \"pool_address\": \"<string>\",\n  \"chain_id\": \"<integer>\",\n  \"days_to_lock\": \"<integer>\",\n  \"lock_time\": \"<integer>\",\n  \"deposit\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"output_pool_tokens\": \"<integer>\",\n  \"single_asset\": false,\n  \"single_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d39abf9f-14bd-4299-9bc8-0aee93005e6b",
+              "name": "Deposit processed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "deposit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deposit\": {\n    \"0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1\": \"2000000000000000000\"\n  },\n  \"sender\": \"0x54298A80a06068587E13b9dC1AC090259A98D5cD\",\n  \"days_to_lock\": 10,\n  \"chain_id\": 10,\n  \"single_asset\": false,\n  \"pool_address\": \"0x5130f6cE257B8F9bF7fac0A0b519Bd588120ed40\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sender\": \"0x54298A80a06068587E13b9dC1AC090259A98D5cD\",\n  \"n_days\": 10,\n  \"pool_tokens\": \"29438108002416884\",\n  \"good_until\": 1729657240,\n  \"signature\": {\n    \"v\": 28,\n    \"r\": \"0x7c37b52021ea25ed38cbaf4def111eb9b5e6f0c1dc6c34ded53b9824c40febbf\",\n    \"s\": \"0x66ce09126a23cadf277877e556f2d6c5bc3ad1e7080368a13bb0349208d30396\"\n  },\n  \"clipper_exchange_address\": \"0x5130f6cE257B8F9bF7fac0A0b519Bd588120ed40\",\n  \"deposit_amounts\": [\n    \"0\",\n    \"0\",\n    \"0\",\n    \"0\",\n    \"2000000000000000000\",\n    \"0\",\n    \"0\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d5a6acf-2418-4d6b-8235-20706fc97418",
+              "name": "Bad Request - Invalid data in the request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "deposit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deposit\": {\n    \"0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1\": \"2000000000000000000\"\n  },\n  \"sender\": \"0x54298A80a06068587E13b9dC1AC090259A98D5cD\",\n  \"days_to_lock\": 10,\n  \"chain_id\": 10,\n  \"single_asset\": false,\n  \"pool_address\": \"0x5130f6cE257B8F9bF7fac0A0b519Bd588120ed40\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 9962\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc219f72-dad1-4f7d-aacc-c924e4d6ac3b",
+              "name": "Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "deposit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deposit\": {\n    \"0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1\": \"2000000000000000000\"\n  },\n  \"sender\": \"0x54298A80a06068587E13b9dC1AC090259A98D5cD\",\n  \"days_to_lock\": 10,\n  \"chain_id\": 10,\n  \"single_asset\": false,\n  \"pool_address\": \"0x5130f6cE257B8F9bF7fac0A0b519Bd588120ed40\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"Auth: Access is forbidden\",\n  \"errorType\": \"Forbidden\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53942928-1a3d-4296-937f-3ec32706fd15",
+              "name": "Forbidden Error - Access denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "deposit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deposit\": {\n    \"0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1\": \"2000000000000000000\"\n  },\n  \"sender\": \"0x54298A80a06068587E13b9dC1AC090259A98D5cD\",\n  \"days_to_lock\": 10,\n  \"chain_id\": 10,\n  \"single_asset\": false,\n  \"pool_address\": \"0x5130f6cE257B8F9bF7fac0A0b519Bd588120ed40\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 4821\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cde596cf-af86-46d6-874c-263ab478aaa7",
+              "name": "Invalid input data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "deposit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deposit\": {\n    \"0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1\": \"2000000000000000000\"\n  },\n  \"sender\": \"0x54298A80a06068587E13b9dC1AC090259A98D5cD\",\n  \"days_to_lock\": 10,\n  \"chain_id\": 10,\n  \"single_asset\": false,\n  \"pool_address\": \"0x5130f6cE257B8F9bF7fac0A0b519Bd588120ed40\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"Invalid input data\",\n  \"errorType\": \"BadData\",\n  \"errorCode\": 422,\n  \"data\": [\n    {\n      \"type\": \"missing\",\n      \"loc\": [\n        \"chain_id\"\n      ],\n      \"msg\": \"Field required\",\n      \"input\": {\n        \"input_amount\": \"18000\",\n        \"input_asset_symbol\": \"ETH\",\n        \"output_asset_symbol\": \"WBTC\",\n        \"time_in_seconds\": 60\n      },\n      \"url\": \"https://errors.pydantic.dev/2.1/v/missing\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70898475-f0b5-41a2-879d-7204b3a09502",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "deposit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deposit\": {\n    \"0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1\": \"2000000000000000000\"\n  },\n  \"sender\": \"0x54298A80a06068587E13b9dC1AC090259A98D5cD\",\n  \"days_to_lock\": 10,\n  \"chain_id\": 10,\n  \"single_asset\": false,\n  \"pool_address\": \"0x5130f6cE257B8F9bF7fac0A0b519Bd588120ed40\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 4821\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "324e2ac5-f524-4775-9439-20d0ad36193a",
+              "name": "External Service Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rfq",
+                    "v2",
+                    "deposit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deposit\": {\n    \"0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1\": \"2000000000000000000\"\n  },\n  \"sender\": \"0x54298A80a06068587E13b9dC1AC090259A98D5cD\",\n  \"days_to_lock\": 10,\n  \"chain_id\": 10,\n  \"single_asset\": false,\n  \"pool_address\": \"0x5130f6cE257B8F9bF7fac0A0b519Bd588120ed40\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorType\": \"string\",\n  \"errorCode\": 4821\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://blade-api.sushi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "33431e2a-7cb6-46d3-860d-9febbb313ec2",
+    "name": "Blade Deposit API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentation for interacting with the Blade API\n\nContact Support:\n Name: Blade API Support\n Email: aggregators@shipyardsoftware.org",
+      "type": "text/plain"
+    }
+  }
+}

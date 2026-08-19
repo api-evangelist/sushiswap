@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blade Deposit Quote API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Quote",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blade-api.sushi.com/rfq/v2/quote/:chainId",
+            "params": [
+              {
+                "name": "chainId",
+                "value": "137",
+                "type": "path",
+                "description": "ID of the blockchain network"
+              },
+              {
+                "name": "pool_address",
+                "value": "0x655eDCE464CC797526600a462A8154650EEe4B77",
+                "type": "query",
+                "description": "Address of the pool. If not present, the best pool will be calculated"
+              },
+              {
+                "name": "time_in_seconds",
+                "value": "30",
+                "type": "query",
+                "description": "Amount of time between accepting a quote and receiving the quote on the blockchain. As this value increases, the quote will get worse for the user."
+              },
+              {
+                "name": "output_amount",
+                "value": "18000",
+                "type": "query",
+                "description": "Desired quantity of assets to receive as part of the swap. This field is mutually exclusive with `input_amount`"
+              },
+              {
+                "name": "input_amount",
+                "value": "18000",
+                "type": "query",
+                "description": "Desired quantity of assets you are willing to exchange. This field is mutually exclusive with `output_amount`"
+              },
+              {
+                "name": "input_asset_symbol",
+                "value": "ETH",
+                "type": "query",
+                "description": "Identifier of the asset you want to provide for the swap. Should correspond to the asset name returned from the pool call"
+              },
+              {
+                "name": "output_asset_symbol",
+                "value": "DAI",
+                "type": "query",
+                "description": "Identifier of the asset you want to receive in the swap. Should correspond to the asset name returned from the pool call"
+              }
+            ]
+          },
+          "docs": "This endpoint facilitates the creation of a potential quote for executing a swap between two assets. It allows users to obtain pricing information and other essential details necessary to initiate asset swaps within the system. Use this endpoint to explore the potential cost and feasibility of asset exchanges before finalizing transactions."
+        },
+        {
+          "info": {
+            "name": "Sign a quote for swap execution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://blade-api.sushi.com/rfq/sign",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint plays a pivotal role in the preparation and execution of secure asset swaps on the blockchain. By providing a Quote ID and a destination address, users can initiate the signing process, resulting in the generation of the essential signature and transaction data. This signature and data package, in turn, is integral for ensuring the validity and security of asset transfers within the blockchain network."
+        },
+        {
+          "info": {
+            "name": "Quote and sign in one request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blade-api.sushi.com/rfq/v2/quote-sign/:chainId",
+            "params": [
+              {
+                "name": "chainId",
+                "value": "137",
+                "type": "path",
+                "description": "ID of the blockchain network"
+              },
+              {
+                "name": "pool_address",
+                "value": "0x655eDCE464CC797526600a462A8154650EEe4B77",
+                "type": "query",
+                "description": "Address of the pool. If not present, the best pool will be calculated"
+              },
+              {
+                "name": "time_in_seconds",
+                "value": "30",
+                "type": "query",
+                "description": "Amount of time between accepting a quote and receiving the quote on the blockchain. As this value increases, the quote will get worse for the user."
+              },
+              {
+                "name": "output_amount",
+                "value": "18000",
+                "type": "query",
+                "description": "Desired quantity of assets to receive as part of the swap. This field is mutually exclusive with `input_amount`"
+              },
+              {
+                "name": "input_amount",
+                "value": "18000",
+                "type": "query",
+                "description": "Desired quantity of assets you are willing to exchange. This field is mutually exclusive with `output_amount`"
+              },
+              {
+                "name": "input_asset_symbol",
+                "value": "ETH",
+                "type": "query",
+                "description": "Identifier of the asset you want to provide for the swap. Should correspond to the asset name returned from the pool call"
+              },
+              {
+                "name": "output_asset_symbol",
+                "value": "DAI",
+                "type": "query",
+                "description": "Identifier of the asset you want to receive in the swap. Should correspond to the asset name returned from the pool call"
+              },
+              {
+                "name": "destination_address",
+                "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9",
+                "type": "query",
+                "description": "Address that will receive the output token"
+              },
+              {
+                "name": "sender_address",
+                "value": "0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9",
+                "type": "query",
+                "description": "For DEX aggregator partners that are using their own smart contract to mediate the interaction between users and Blade. Aggregators should use the address of the account that they will pull tokens from (i.e., the EOA user address) as opposed to the address of their deployed contract. By default, `destination_address` will be used."
+              },
+              {
+                "name": "aux_data",
+                "value": "0x31494e4348000000000000000000000000000000000000000000000000000000",
+                "type": "query",
+                "description": "For use with the calldata swap feature, it can be set to any string and is used for identification purposes in the event logs. By default is `0x436c697070657200000000000000000000000000000000000000000000000000` that is the representation of `Clipper`"
+              },
+              {
+                "name": "calldata",
+                "value": "true",
+                "type": "query",
+                "description": "Send this as true if we want to get the bytes representation of the swap in the response. Client can use this to be sent directly to the pool contract for execution."
+              }
+            ]
+          },
+          "docs": "This endpoint streamlines the swap process by combining the quote generation and signing steps into a single request. Users can obtain real-time pricing information for an asset swap and simultaneously receive the required signature and transaction data for execution on the blockchain. This unified flow reduces latency, simplifies integration, and ensures secure, ready-to-broadcast transactions without the need for multiple API calls."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

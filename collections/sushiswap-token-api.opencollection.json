@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blade Deposit token API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "returns token data for specified chainId and token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blade-api.sushi.com/token/v1/:chainId/:tokenAddress",
+            "params": [
+              {
+                "name": "chainId",
+                "value": "",
+                "type": "path",
+                "description": "chainId"
+              },
+              {
+                "name": "tokenAddress",
+                "value": "",
+                "type": "path",
+                "description": "token address"
+              }
+            ]
+          },
+          "docs": "By passing in a chainId and address, you can get token data for specified token address\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

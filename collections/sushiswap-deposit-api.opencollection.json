@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blade Deposit API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deposit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Deposit assets into liquidity pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://blade-api.sushi.com/rfq/v2/deposit",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows users to deposit assets into a liquidity pool by submitting the required details, such as the pool contract address and the amount of assets to be deposited. This process is crucial for users who want to increase the liquidity of the pool and potentially earn rewards or fees. Use this endpoint to securely and efficiently add assets to the pool, contributing to the stability and performance of the ecosystem."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blade Deposit price API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "price",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "returns prices for specified chainId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blade-api.sushi.com/price/v1/:chainId",
+            "params": [
+              {
+                "name": "chainId",
+                "value": "",
+                "type": "path",
+                "description": "chainId"
+              }
+            ]
+          },
+          "docs": "By passing in a chainId, you can get dollar prices for tokens addresses\n"
+        },
+        {
+          "info": {
+            "name": "returns price for specified chainId and token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blade-api.sushi.com/price/v1/:chainId/:tokenAddress",
+            "params": [
+              {
+                "name": "chainId",
+                "value": "",
+                "type": "path",
+                "description": "chainId"
+              },
+              {
+                "name": "tokenAddress",
+                "value": "",
+                "type": "path",
+                "description": "token address"
+              }
+            ]
+          },
+          "docs": "By passing in a chainId and address, you can get a dollar price for specified token address\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
