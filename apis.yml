@@ -57,6 +57,8 @@ apis:
   humanURL: https://docs.sushi.com/api/examples/swap
   baseURL: https://api.sushi.com/price/v1
   tags:
+  - Liquidity Providers
+  tags_raw:
   - liquidity-providers
   properties:
   - type: OpenAPI
@@ -93,6 +95,8 @@ apis:
   humanURL: https://docs.sushi.com/api/examples/swap
   baseURL: https://api.sushi.com/price/v1
   tags:
+  - Price
+  tags_raw:
   - price
   properties:
   - type: OpenAPI
@@ -111,6 +115,8 @@ apis:
   humanURL: https://docs.sushi.com/api/examples/swap
   baseURL: https://api.sushi.com/price/v1
   tags:
+  - Quotes
+  tags_raw:
   - Quote
   properties:
   - type: OpenAPI
@@ -129,6 +135,8 @@ apis:
   humanURL: https://docs.sushi.com/api/examples/swap
   baseURL: https://api.sushi.com/price/v1
   tags:
+  - Swap
+  tags_raw:
   - swap
   properties:
   - type: OpenAPI
@@ -147,6 +155,8 @@ apis:
   humanURL: https://docs.sushi.com/api/examples/swap
   baseURL: https://api.sushi.com/price/v1
   tags:
+  - Token
+  tags_raw:
   - token
   properties:
   - type: OpenAPI
