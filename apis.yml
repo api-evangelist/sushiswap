@@ -4,6 +4,18 @@ description: SushiSwap is a multi-chain decentralized exchange (DEX) protocol of
   and exchange analytics across 30+ blockchain networks. The Sushi API suite enables
   developers to integrate token pricing, generate swap quotes, and execute on-chain
   transactions programmatically via a unified base URL with per-chain routing.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
