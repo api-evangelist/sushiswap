@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Blade Deposit Pool API
+  title: Blade Pool API
   description: Documentation for interacting with the Blade API
   version: 2.0.0
   contact:
@@ -129,7 +129,7 @@ paths:
                         chain_id: 1
                         address: '0x655eDCE464CC797526600a462A8154650EEe4B77'
                         num_assets: 4
-                        pool_tokens: 1.3792871898369242e24
+                        pool_tokens: 1.3792871898369242e+24
                         value_in_usd: 1978682.496424432
                         swaps_enabled: true
                       assets:
@@ -169,6 +169,56 @@ paths:
           $ref: '#/components/responses/ExternalServiceError'
 components:
   schemas:
+    OffChainPoolResponse:
+      type: object
+      properties:
+        pool_type:
+          type: string
+          enum:
+          - offchain
+          description: Indicates this is off-chain pool data
+        pools:
+          type: array
+          items:
+            $ref: '#/components/schemas/OffChainPoolData'
+      required:
+      - pool_type
+      - pools
+    OnChainPoolResponse:
+      type: object
+      properties:
+        pool_type:
+          type: string
+          enum:
+          - onchain
+          description: Indicates this is on-chain pool data
+        pools:
+          type: array
+          items:
+            $ref: '#/components/schemas/OnChainPoolData'
+      required:
+      - pool_type
+      - pools
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+          description: Description of the error
+        errorType:
+          type: string
+          description: Type of the error
+        errorCode:
+          type: integer
+          description: Error code (returned only when we have a blade code for the error)
+        data:
+          type: array
+          items:
+            type: object
+          description: Additional error data (returned only when the input data is invalid)
+      required:
+      - errorMessage
+      - errorType
     OffChainAsset:
       type: object
       properties:
@@ -190,23 +240,33 @@ components:
       - address
       - price_in_usd
       - listing_weight
-    OffChainPoolData:
+    Pair:
       type: object
       properties:
-        pool:
-          $ref: '#/components/schemas/OffChainPool'
         assets:
           type: array
           items:
-            $ref: '#/components/schemas/OffChainAsset'
-        pairs:
+            type: string
+          description: 'Pair of assets available to make a swap - e.g: ["ETH", "MATIC"]'
+        fee_in_basis_points:
+          type: number
+          format: float
+          description: Fee for make a swap between the pair
+      required:
+      - assets
+      - fee_in_basis_points
+    OnChainPoolData:
+      type: object
+      properties:
+        pool:
+          $ref: '#/components/schemas/OnChainPool'
+        assets:
           type: array
           items:
-            $ref: '#/components/schemas/Pair'
+            $ref: '#/components/schemas/OnChainAsset'
       required:
       - pool
       - assets
-      - pairs
     OffChainPool:
       type: object
       properties:
@@ -240,21 +300,52 @@ components:
       - time_in_seconds
       - default_time_in_seconds
       - swaps_enabled
-    OffChainPoolResponse:
+    OffChainPoolData:
       type: object
       properties:
-        pool_type:
-          type: string
-          enum:
-          - offchain
-          description: Indicates this is off-chain pool data
-        pools:
+        pool:
+          $ref: '#/components/schemas/OffChainPool'
+        assets:
           type: array
           items:
-            $ref: '#/components/schemas/OffChainPoolData'
+            $ref: '#/components/schemas/OffChainAsset'
+        pairs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pair'
       required:
-      - pool_type
-      - pools
+      - pool
+      - assets
+      - pairs
+    OnChainPool:
+      type: object
+      properties:
+        chain_id:
+          type: integer
+          description: ID of the chain
+        address:
+          type: string
+          description: Blade contract address of the pool, is the address used when executing a transaction
+        num_assets:
+          type: integer
+          description: The total of assets available in the chain
+        pool_tokens:
+          type: number
+          description: The total number of pool tokens
+        value_in_usd:
+          type: number
+          format: float
+          description: Value of the pool in USD
+        swaps_enabled:
+          type: boolean
+          description: Represents if the swaps are available for the chain
+      required:
+      - chain_id
+      - address
+      - num_assets
+      - pool_tokens
+      - value_in_usd
+      - swaps_enabled
     OnChainAsset:
       type: object
       properties:
@@ -286,106 +377,15 @@ components:
       - price_in_usd
       - value_in_usd
       - target_value_in_usd
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          type: string
-          description: Description of the error
-        errorType:
-          type: string
-          description: Type of the error
-        errorCode:
-          type: integer
-          description: Error code (returned only when we have a blade code for the error)
-        data:
-          type: array
-          items:
-            type: object
-          description: Additional error data (returned only when the input data is invalid)
-      required:
-      - errorMessage
-      - errorType
-    Pair:
-      type: object
-      properties:
-        assets:
-          type: array
-          items:
-            type: string
-          description: 'Pair of assets available to make a swap - e.g: ["ETH", "MATIC"]'
-        fee_in_basis_points:
-          type: number
-          format: float
-          description: Fee for make a swap between the pair
-      required:
-      - assets
-      - fee_in_basis_points
-    OnChainPoolData:
-      type: object
-      properties:
-        pool:
-          $ref: '#/components/schemas/OnChainPool'
-        assets:
-          type: array
-          items:
-            $ref: '#/components/schemas/OnChainAsset'
-      required:
-      - pool
-      - assets
-    OnChainPoolResponse:
-      type: object
-      properties:
-        pool_type:
-          type: string
-          enum:
-          - onchain
-          description: Indicates this is on-chain pool data
-        pools:
-          type: array
-          items:
-            $ref: '#/components/schemas/OnChainPoolData'
-      required:
-      - pool_type
-      - pools
-    OnChainPool:
-      type: object
-      properties:
-        chain_id:
-          type: integer
-          description: ID of the chain
-        address:
-          type: string
-          description: Blade contract address of the pool, is the address used when executing a transaction
-        num_assets:
-          type: integer
-          description: The total of assets available in the chain
-        pool_tokens:
-          type: number
-          description: The total number of pool tokens
-        value_in_usd:
-          type: number
-          format: float
-          description: Value of the pool in USD
-        swaps_enabled:
-          type: boolean
-          description: Represents if the swaps are available for the chain
-      required:
-      - chain_id
-      - address
-      - num_assets
-      - pool_tokens
-      - value_in_usd
-      - swaps_enabled
   responses:
-    ExternalServiceError:
-      description: External Service Error
+    BadRequest:
+      description: Bad Request - Invalid data in the request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal Server Error
+    Forbidden:
+      description: Forbidden Error - Access denied
       content:
         application/json:
           schema:
@@ -399,14 +399,14 @@ components:
           example:
             errorMessage: 'Auth: Access is forbidden'
             errorType: Forbidden
-    BadRequest:
-      description: Bad Request - Invalid data in the request
+    InternalServerError:
+      description: Internal Server Error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: Forbidden Error - Access denied
+    ExternalServiceError:
+      description: External Service Error
       content:
         application/json:
           schema:

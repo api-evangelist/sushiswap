@@ -1,26 +1,33 @@
 {
   "provider": "sushiswap",
   "sources": [
-    "sushiswap-deposit-api-openapi.yml",
-    "sushiswap-liquidity-providers-api-openapi.yml",
-    "sushiswap-pool-api-openapi.yml",
-    "sushiswap-price-api-openapi.yml",
-    "sushiswap-quote-api-openapi.yml",
-    "sushiswap-swap-api-openapi.yml",
-    "sushiswap-token-api-openapi.yml"
+    "_original/blade-v2-openapi.json",
+    "_original/sushi-api-openapi.yaml"
   ],
   "outputs": [
     "sushiswap-deposit-api-openapi.yml",
-    "sushiswap-liquidity-providers-api-openapi.yml",
     "sushiswap-pool-api-openapi.yml",
-    "sushiswap-price-api-openapi.yml",
     "sushiswap-quote-api-openapi.yml",
+    "sushiswap-liquidity-providers-api-openapi.yml",
+    "sushiswap-price-api-openapi.yml",
     "sushiswap-swap-api-openapi.yml",
     "sushiswap-token-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "blade-v2-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "sushi-api-openapi.yaml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0"
+  ],
+  "skipped": [
+    "sushiswap-deposit-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sushiswap-liquidity-providers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sushiswap-pool-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sushiswap-price-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sushiswap-quote-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sushiswap-swap-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sushiswap-token-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

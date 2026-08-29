@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Blade Deposit Quote API
+  title: Blade Quote API
   description: Documentation for interacting with the Blade API
   version: 2.0.0
   contact:
@@ -330,90 +330,68 @@ paths:
         '503':
           $ref: '#/components/responses/ExternalServiceError'
 components:
+  responses:
+    BadRequest:
+      description: Bad Request - Invalid data in the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden Error - Access denied
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errorMessage: 'Auth: Access is forbidden'
+            errorType: Forbidden
+    ExternalServiceError:
+      description: External Service Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InvalidInputData:
+      description: Invalid input data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errorMessage: Invalid input data
+            errorType: BadData
+            errorCode: 422
+            data:
+            - type: missing
+              loc:
+              - chain_id
+              msg: Field required
+              input:
+                input_amount: '18000'
+                input_asset_symbol: ETH
+                output_asset_symbol: WBTC
+                time_in_seconds: 60
+              url: https://errors.pydantic.dev/2.1/v/missing
+    QuoteProblems:
+      description: Quote problems
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    QuoteSignResponse:
-      type: object
-      properties:
-        chain_id:
-          type: integer
-          description: Represents the ID of the chain
-        input_asset_address:
-          type: string
-          description: Contract address of the asset you want to provide for the swap
-        output_asset_address:
-          type: string
-          description: Contract address of the asset you want to receive in the swap
-        input_amount:
-          type: string
-          description: Amount of assets to be exchanged
-        output_amount:
-          type: string
-          description: Amount of assets you will receive in the exchange
-        good_until:
-          type: string
-          description: Number of seconds that quotes live. It can also contained a packed representation of the state
-        destination_address:
-          type: string
-          description: Address will receive the output token
-        signature:
-          $ref: '#/components/schemas/EIP2098Signature'
-        clipper_exchange_address:
-          type: string
-          description: Blade contract address of the pool, is the address used when executing a transaction
-        calldata:
-          type: string
-          description: Bytes representation of the swap function and parameters to be sent directly to the `clipper_exchange_address` for execution. Only present when `calldata=true` in request.
-        id:
-          type: string
-          format: uuid
-          description: Internal identifier
-        input_value_in_usd:
-          type: number
-          format: float
-          description: Amount in dollars to be exchanged
-        output_value_in_usd:
-          type: number
-          format: float
-          description: Amount in dollars you will receive in the exchange
-        created_at:
-          type: integer
-          description: Unix Timestamp indicating the date and time when the quote was created
-        rate:
-          type: number
-          format: float
-          description: swap rate
-      required:
-      - chain_id
-      - input_asset_address
-      - output_asset_address
-      - input_amount
-      - output_amount
-      - good_until
-      - destination_address
-      - signature
-      - clipper_exchange_address
-      - id
-      - input_value_in_usd
-      - output_value_in_usd
-      - created_at
-      - rate
-    EIP2098Signature:
-      type: object
-      description: A EIP 2098 'short signature' representation for the signature from the Blade Exchange server
-      properties:
-        v:
-          type: integer
-          description: Recovery identifier
-        r:
-          type: string
-          description: ECDSA signature r
-        s:
-          type: string
-          description: ECDSA signature s
-      required:
-      - v
-      - r
-      - s
     QuoteResponse:
       type: object
       properties:
@@ -483,6 +461,145 @@ components:
         rate: 566.1947917
         input_asset_address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
         output_asset_address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+          description: Description of the error
+        errorType:
+          type: string
+          description: Type of the error
+        errorCode:
+          type: integer
+          description: Error code (returned only when we have a blade code for the error)
+        data:
+          type: array
+          items:
+            type: object
+          description: Additional error data (returned only when the input data is invalid)
+      required:
+      - errorMessage
+      - errorType
+    EIP2098Signature:
+      type: object
+      description: A EIP 2098 'short signature' representation for the signature from the Blade Exchange server
+      properties:
+        v:
+          type: integer
+          description: Recovery identifier
+        r:
+          type: string
+          description: ECDSA signature r
+        s:
+          type: string
+          description: ECDSA signature s
+      required:
+      - v
+      - r
+      - s
+    QuoteSignResponse:
+      type: object
+      properties:
+        chain_id:
+          type: integer
+          description: Represents the ID of the chain
+        input_asset_address:
+          type: string
+          description: Contract address of the asset you want to provide for the swap
+        output_asset_address:
+          type: string
+          description: Contract address of the asset you want to receive in the swap
+        input_amount:
+          type: string
+          description: Amount of assets to be exchanged
+        output_amount:
+          type: string
+          description: Amount of assets you will receive in the exchange
+        good_until:
+          type: string
+          description: Number of seconds that quotes live. It can also contained a packed representation of the state
+        destination_address:
+          type: string
+          description: Address will receive the output token
+        signature:
+          $ref: '#/components/schemas/EIP2098Signature'
+        clipper_exchange_address:
+          type: string
+          description: Blade contract address of the pool, is the address used when executing a transaction
+        calldata:
+          type: string
+          description: Bytes representation of the swap function and parameters to be sent directly to the `clipper_exchange_address` for execution. Only present when `calldata=true` in request.
+        id:
+          type: string
+          format: uuid
+          description: Internal identifier
+        input_value_in_usd:
+          type: number
+          format: float
+          description: Amount in dollars to be exchanged
+        output_value_in_usd:
+          type: number
+          format: float
+          description: Amount in dollars you will receive in the exchange
+        created_at:
+          type: integer
+          description: Unix Timestamp indicating the date and time when the quote was created
+        rate:
+          type: number
+          format: float
+          description: swap rate
+      required:
+      - chain_id
+      - input_asset_address
+      - output_asset_address
+      - input_amount
+      - output_amount
+      - good_until
+      - destination_address
+      - signature
+      - clipper_exchange_address
+      - id
+      - input_value_in_usd
+      - output_value_in_usd
+      - created_at
+      - rate
+    SignRequest:
+      type: object
+      properties:
+        quote_id:
+          type: string
+          format: uuid
+          description: The id of the quote returned in quote endpoint
+          example: 4c707e45-7019-4b81-b875-c5eb6fe061d6
+        destination_address:
+          type: string
+          description: Address that will receive the output token
+          example: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
+        sender_address:
+          type: string
+          description: For DEX aggregator partners that are using their own smart contract to mediate the interaction between users and Blade. Aggregators should use the address of the account that they will pull tokens from (i.e., the EOA user address) as opposed to the address of their deployed contract. By default, `destination_address` will be used.
+          example: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
+        aux_data:
+          type: string
+          description: For use with the calldata swap feature, it can be set to any string and is used for identification purposes in the event logs. By default is` 0x436c697070657200000000000000000000000000000000000000000000000000` that is the representation of `Clipper`
+          example: '0x31494e4348000000000000000000000000000000000000000000000000000000'
+          default: '0x436c697070657200000000000000000000000000000000000000000000000000'
+        calldata:
+          type: boolean
+          description: Send this as true if we want to get the bytes representation of the swap in the response. Client can use this to be sent directly to the pool contract for execution.
+          default: false
+        native_input:
+          type: boolean
+          description: If the input token is native (e.g. raw ETH), this value must be true. This will use the `sellEthForToken` contract function and will take the `msg.value` for the input. e.g `ETH -> USDC`. This field is mutually exclusive with `native_output`.
+          default: false
+        native_output:
+          type: boolean
+          description: If the output token is native (i.e. raw ETH), this value must be true. This will use the `sellTokenForEth` contract function. e.g `USDC -> ETH`. This field is mutually exclusive with `native_input`.
+          default: false
+      required:
+      - quote_id
+      - destination_address
     SignResponse:
       type: object
       properties:
@@ -525,123 +642,6 @@ components:
       - destination_address
       - signature
       - clipper_exchange_address
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          type: string
-          description: Description of the error
-        errorType:
-          type: string
-          description: Type of the error
-        errorCode:
-          type: integer
-          description: Error code (returned only when we have a blade code for the error)
-        data:
-          type: array
-          items:
-            type: object
-          description: Additional error data (returned only when the input data is invalid)
-      required:
-      - errorMessage
-      - errorType
-    SignRequest:
-      type: object
-      properties:
-        quote_id:
-          type: string
-          format: uuid
-          description: The id of the quote returned in quote endpoint
-          example: 4c707e45-7019-4b81-b875-c5eb6fe061d6
-        destination_address:
-          type: string
-          description: Address that will receive the output token
-          example: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
-        sender_address:
-          type: string
-          description: For DEX aggregator partners that are using their own smart contract to mediate the interaction between users and Blade. Aggregators should use the address of the account that they will pull tokens from (i.e., the EOA user address) as opposed to the address of their deployed contract. By default, `destination_address` will be used.
-          example: '0x960376b3F62f41E7e66809a05D1C5afdFD60A0E9'
-        aux_data:
-          type: string
-          description: For use with the calldata swap feature, it can be set to any string and is used for identification purposes in the event logs. By default is` 0x436c697070657200000000000000000000000000000000000000000000000000` that is the representation of `Clipper`
-          example: '0x31494e4348000000000000000000000000000000000000000000000000000000'
-          default: '0x436c697070657200000000000000000000000000000000000000000000000000'
-        calldata:
-          type: boolean
-          description: Send this as true if we want to get the bytes representation of the swap in the response. Client can use this to be sent directly to the pool contract for execution.
-          default: false
-        native_input:
-          type: boolean
-          description: If the input token is native (e.g. raw ETH), this value must be true. This will use the `sellEthForToken` contract function and will take the `msg.value` for the input. e.g `ETH -> USDC`. This field is mutually exclusive with `native_output`.
-          default: false
-        native_output:
-          type: boolean
-          description: If the output token is native (i.e. raw ETH), this value must be true. This will use the `sellTokenForEth` contract function. e.g `USDC -> ETH`. This field is mutually exclusive with `native_input`.
-          default: false
-      required:
-      - quote_id
-      - destination_address
-  responses:
-    QuoteProblems:
-      description: Quote problems
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    ExternalServiceError:
-      description: External Service Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    InvalidInputData:
-      description: Invalid input data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errorMessage: Invalid input data
-            errorType: BadData
-            errorCode: 422
-            data:
-            - type: missing
-              loc:
-              - chain_id
-              msg: Field required
-              input:
-                input_amount: '18000'
-                input_asset_symbol: ETH
-                output_asset_symbol: WBTC
-                time_in_seconds: 60
-              url: https://errors.pydantic.dev/2.1/v/missing
-    Unauthorized:
-      description: Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errorMessage: 'Auth: Access is forbidden'
-            errorType: Forbidden
-    BadRequest:
-      description: Bad Request - Invalid data in the request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: Forbidden Error - Access denied
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
