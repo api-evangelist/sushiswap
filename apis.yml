@@ -183,6 +183,8 @@ apis:
   - type: Portal
     url: https://sushi.com/portal
 common:
+- type: Website
+  url: https://www.sushi.com/
 - type: AgenticAccess
   url: agentic-access/sushiswap-agentic-access.yml
 - type: DomainSecurity
