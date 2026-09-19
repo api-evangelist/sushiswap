@@ -168,7 +168,7 @@ apis:
   humanURL: https://docs.sushi.com/api/examples/swap
   baseURL: https://api.sushi.com/price/v1
   tags:
-  - Token
+  - Tokens
   tags_raw:
   - token
   properties:
