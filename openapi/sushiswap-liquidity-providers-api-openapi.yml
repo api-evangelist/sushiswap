@@ -9,18 +9,16 @@ servers:
 - description: SwaggerHub API Auto Mocking
   url: https://virtserver.swaggerhub.com/sushi-labs/sushi/7.0.0
 tags:
-- name: liquidity-providers
+- name: Liquidity Providers
   description: All liquidity provider endpoints
 paths:
   /liquidity-providers/v7/{chainId}:
     get:
       tags:
-      - liquidity-providers
+      - Liquidity Providers
       summary: Returns all available liquidity providers for the specified chainId
       operationId: getLiquidityProviders
-      description: 'By passing in a chainId you can get the enabled liquidity providers.
-
-        '
+      description: By passing in a chainId you can get the enabled liquidity providers.
       parameters:
       - $ref: '#/components/parameters/chainId'
       responses:

@@ -19,7 +19,8 @@
   "notes": [
     "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "blade-v2-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "sushi-api-openapi.yaml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0"
+    "sushi-api-openapi.yaml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "sushiswap-deposit-api-openapi.yml: previously refined output, superseded by openapi/_original/",

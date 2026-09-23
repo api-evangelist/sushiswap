@@ -9,18 +9,16 @@ servers:
 - description: SwaggerHub API Auto Mocking
   url: https://virtserver.swaggerhub.com/sushi-labs/sushi/7.0.0
 tags:
-- name: token
+- name: Token
   description: All token endpoints
 paths:
   /token/v1/{chainId}/{tokenAddress}:
     get:
       tags:
-      - token
+      - Token
       summary: returns token data for specified chainId and token
       operationId: token
-      description: 'By passing in a chainId and address, you can get token data for specified token address
-
-        '
+      description: By passing in a chainId and address, you can get token data for specified token address
       parameters:
       - $ref: '#/components/parameters/chainId'
       - $ref: '#/components/parameters/tokenAddress'
@@ -45,13 +43,6 @@ paths:
           description: server overloaded
 components:
   parameters:
-    tokenAddress:
-      in: path
-      name: tokenAddress
-      description: token address
-      required: true
-      schema:
-        type: string
     chainId:
       in: path
       name: chainId
@@ -59,3 +50,10 @@ components:
       required: true
       schema:
         type: number
+    tokenAddress:
+      in: path
+      name: tokenAddress
+      description: token address
+      required: true
+      schema:
+        type: string

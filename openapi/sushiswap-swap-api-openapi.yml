@@ -9,18 +9,16 @@ servers:
 - description: SwaggerHub API Auto Mocking
   url: https://virtserver.swaggerhub.com/sushi-labs/sushi/7.0.0
 tags:
-- name: swap
+- name: Swap
   description: All swap endpoints
 paths:
   /quote/v7/{chainId}:
     get:
       tags:
-      - swap
+      - Swap
       summary: generates a quote
       operationId: quote
-      description: 'By passing in the appropriate options, you can generate a swap quote
-
-        '
+      description: By passing in the appropriate options, you can generate a swap quote
       parameters:
       - $ref: '#/components/parameters/chainId'
       - $ref: '#/components/parameters/referrer'
@@ -74,12 +72,10 @@ paths:
   /swap/v7/{chainId}:
     get:
       tags:
-      - swap
+      - Swap
       summary: generates a swap
       operationId: swap
-      description: 'By passing in the appropriate options, you can generate a swap transaction
-
-        '
+      description: By passing in the appropriate options, you can generate a swap transaction
       parameters:
       - $ref: '#/components/parameters/chainId'
       - $ref: '#/components/parameters/referrer'
@@ -146,39 +142,29 @@ paths:
           description: server overloaded
 components:
   parameters:
-    onlyDEX:
+    maxPriceImpact:
       in: query
-      name: onlyDEX
-      description: a list of DEX names separated by comma. If exists in the request then only pools from these DEXes are used in the response route. List of all supported DEXes can be obtained with /liquidity-provider request
+      name: maxPriceImpact
+      description: the max price impact for route planning. It's better to set it to a reasonable value, for example 1 (100%)
       required: false
       schema:
-        type: string
+        type: number
+        maximum: 1
+        default: 1
+        exclusiveMinimum: 0
+    validate:
+      in: query
+      name: validate
+      description: validate sender has balance & allowance of token if simulation fails
+      required: false
+      schema:
+        type: boolean
+        default: false
     tokenOut:
       in: query
       name: tokenOut
       description: output token address
       required: true
-      schema:
-        type: string
-    excludePools:
-      in: query
-      name: excludePools
-      description: a list of pools addresses separated by comma. If exists in the request then these pools are excluded in the response route
-      required: false
-      schema:
-        type: string
-    recipient:
-      in: query
-      name: recipient
-      description: recipient of tokens, defaults to sender
-      required: false
-      schema:
-        type: string
-    excludeTokens:
-      in: query
-      name: excludeTokens
-      description: a list of token addresses separated by comma. If exists in the request then pools with these tokens are excluded in the response route
-      required: false
       schema:
         type: string
     feeReceiver:
@@ -188,10 +174,10 @@ components:
       required: false
       schema:
         type: string
-    excludeDEX:
+    recipient:
       in: query
-      name: excludeDEX
-      description: a list of DEX names separated by comma. If exists in the request then pools from these DEXes are excluded in the response route. List of all supported DEXes can be obtained with /liquidity-provider request
+      name: recipient
+      description: recipient of tokens, defaults to sender
       required: false
       schema:
         type: string
@@ -205,33 +191,27 @@ components:
         minimum: 0
         maximum: 0.5
         default: 0
-    visualize:
+    onlyPools:
       in: query
-      name: visualize
-      description: vizulaization
+      name: onlyPools
+      description: a list of pools addresses separated by comma. If exists in the request then only these pools are used in the response route
       required: false
       schema:
-        type: boolean
-        default: false
-    amount:
+        type: string
+    onlyDEX:
       in: query
-      name: amount
-      description: input token amount
-      required: true
-      schema:
-        type: integer
-        format: int256
-        minimum: 1
-    maxSlippage:
-      in: query
-      name: maxSlippage
-      description: the max slippage for route execution, for example 0.005 (0.5%)
+      name: onlyDEX
+      description: a list of DEX names separated by comma. If exists in the request then only pools from these DEXes are used in the response route. List of all supported DEXes can be obtained with /liquidity-provider request
       required: false
       schema:
-        type: number
-        minimum: 0
-        default: 0.005
-        exclusiveMaximum: 1
+        type: string
+    excludeDEX:
+      in: query
+      name: excludeDEX
+      description: a list of DEX names separated by comma. If exists in the request then pools from these DEXes are excluded in the response route. List of all supported DEXes can be obtained with /liquidity-provider request
+      required: false
+      schema:
+        type: string
     simulate:
       in: query
       name: simulate
@@ -240,42 +220,10 @@ components:
       schema:
         type: boolean
         default: false
-    feeBy:
+    visualize:
       in: query
-      name: feeBy
-      description: if fee > 0 then which token to take fee from input or output
-      required: false
-      schema:
-        type: string
-        enum:
-        - input
-        - output
-        default: output
-    sender:
-      in: query
-      name: sender
-      description: sender of transaction
-      required: true
-      schema:
-        type: string
-    onlyPools:
-      in: query
-      name: onlyPools
-      description: a list of pools addresses separated by comma. If exists in the request then only these pools are used in the response route
-      required: false
-      schema:
-        type: string
-    tokenIn:
-      in: query
-      name: tokenIn
-      description: input token address
-      required: true
-      schema:
-        type: string
-    override:
-      in: query
-      name: override
-      description: uses state overrides to ensure simulation doesn't fail from sender not having balance and allowance
+      name: visualize
+      description: vizulaization
       required: false
       schema:
         type: boolean
@@ -288,23 +236,47 @@ components:
       schema:
         type: string
         default: none
-    maxPriceImpact:
+    excludePools:
       in: query
-      name: maxPriceImpact
-      description: the max price impact for route planning. It's better to set it to a reasonable value, for example 1 (100%)
+      name: excludePools
+      description: a list of pools addresses separated by comma. If exists in the request then these pools are excluded in the response route
       required: false
       schema:
-        type: number
-        maximum: 1
-        default: 1
-        exclusiveMinimum: 0
-    chainId:
-      in: path
-      name: chainId
-      description: chainId
+        type: string
+    feeBy:
+      in: query
+      name: feeBy
+      description: if fee > 0 then which token to take fee from input or output
+      required: false
+      schema:
+        type: string
+        enum:
+        - input
+        - output
+        default: output
+    amount:
+      in: query
+      name: amount
+      description: input token amount
       required: true
       schema:
-        type: number
+        type: integer
+        format: int256
+        minimum: 1
+    tokenIn:
+      in: query
+      name: tokenIn
+      description: input token address
+      required: true
+      schema:
+        type: string
+    sender:
+      in: query
+      name: sender
+      description: sender of transaction
+      required: true
+      schema:
+        type: string
     source:
       in: query
       name: source
@@ -316,11 +288,35 @@ components:
         - sender
         - self
         default: sender
-    validate:
+    maxSlippage:
       in: query
-      name: validate
-      description: validate sender has balance & allowance of token if simulation fails
+      name: maxSlippage
+      description: the max slippage for route execution, for example 0.005 (0.5%)
+      required: false
+      schema:
+        type: number
+        minimum: 0
+        default: 0.005
+        exclusiveMaximum: 1
+    override:
+      in: query
+      name: override
+      description: uses state overrides to ensure simulation doesn't fail from sender not having balance and allowance
       required: false
       schema:
         type: boolean
         default: false
+    chainId:
+      in: path
+      name: chainId
+      description: chainId
+      required: true
+      schema:
+        type: number
+    excludeTokens:
+      in: query
+      name: excludeTokens
+      description: a list of token addresses separated by comma. If exists in the request then pools with these tokens are excluded in the response route
+      required: false
+      schema:
+        type: string

@@ -136,61 +136,6 @@ paths:
         '503':
           $ref: '#/components/responses/ExternalServiceError'
 components:
-  responses:
-    BadRequest:
-      description: Bad Request - Invalid data in the request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: Forbidden Error - Access denied
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errorMessage: 'Auth: Access is forbidden'
-            errorType: Forbidden
-    InternalServerError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    ExternalServiceError:
-      description: External Service Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    InvalidInputData:
-      description: Invalid input data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errorMessage: Invalid input data
-            errorType: BadData
-            errorCode: 422
-            data:
-            - type: missing
-              loc:
-              - chain_id
-              msg: Field required
-              input:
-                input_amount: '18000'
-                input_asset_symbol: ETH
-                output_asset_symbol: WBTC
-                time_in_seconds: 60
-              url: https://errors.pydantic.dev/2.1/v/missing
   schemas:
     ErrorResponse:
       type: object
@@ -212,66 +157,6 @@ components:
       required:
       - errorMessage
       - errorType
-    DepositResponse:
-      type: object
-      properties:
-        sender:
-          type: string
-          description: The address of the user who initiated the deposit transaction.
-        n_days:
-          type: integer
-          description: The number of days the assets will be locked in the pool, matching the `days_to_lock` from the request. Supported for all pools except Katana. For katana, returns `lock_time`.
-        lock_time:
-          type: integer
-          description: The number of minutes the assets will be locked in the pool, matching the `lock_time` from the request. Only supported by the Katana pool. For other pools, returns `n_days`.
-        good_until:
-          type: integer
-          description: The timestamp indicating how long the deposit details, including the signature, are valid.
-        pool_tokens:
-          type: string
-          description: The total number of pool tokens that will be given to the user as a result of the deposit.
-        signature:
-          $ref: '#/components/schemas/EIP2098Signature'
-        clipper_exchange_address:
-          type: string
-          description: The address of the Blade exchange contract where the deposit is being made.
-        deposit_amounts:
-          type: array
-          items:
-            type: string
-          description: A list of the amounts to be deposited for each asset. If an asset was not provided in the request, the amount returned will be 0. For example, if 3 assets were provided in a 4-asset pool, the response will include an amount of 0 for the missing asset. For single asset deposit this field is not present
-        amount:
-          type: string
-          description: (Single-asset deposits only) The total amount of the single asset that is being deposited into the pool.
-        token:
-          type: string
-          description: (Single-asset deposits only) The address of the token that is being deposited into the pool.
-        extra_data:
-          type: string
-          description: Encode LP token price and prices list into ABI-compatible bytes. Only supported by the Katana pool.
-      required:
-      - sender
-      - good_until
-      - pool_tokens
-      - signature
-      - clipper_exchange_address
-    EIP2098Signature:
-      type: object
-      description: A EIP 2098 'short signature' representation for the signature from the Blade Exchange server
-      properties:
-        v:
-          type: integer
-          description: Recovery identifier
-        r:
-          type: string
-          description: ECDSA signature r
-        s:
-          type: string
-          description: ECDSA signature s
-      required:
-      - v
-      - r
-      - s
     DepositRequest:
       type: object
       properties:
@@ -322,6 +207,121 @@ components:
       - sender
       - pool_address
       - chain_id
+    EIP2098Signature:
+      type: object
+      description: A EIP 2098 'short signature' representation for the signature from the Blade Exchange server
+      properties:
+        v:
+          type: integer
+          description: Recovery identifier
+        r:
+          type: string
+          description: ECDSA signature r
+        s:
+          type: string
+          description: ECDSA signature s
+      required:
+      - v
+      - r
+      - s
+    DepositResponse:
+      type: object
+      properties:
+        sender:
+          type: string
+          description: The address of the user who initiated the deposit transaction.
+        n_days:
+          type: integer
+          description: The number of days the assets will be locked in the pool, matching the `days_to_lock` from the request. Supported for all pools except Katana. For katana, returns `lock_time`.
+        lock_time:
+          type: integer
+          description: The number of minutes the assets will be locked in the pool, matching the `lock_time` from the request. Only supported by the Katana pool. For other pools, returns `n_days`.
+        good_until:
+          type: integer
+          description: The timestamp indicating how long the deposit details, including the signature, are valid.
+        pool_tokens:
+          type: string
+          description: The total number of pool tokens that will be given to the user as a result of the deposit.
+        signature:
+          $ref: '#/components/schemas/EIP2098Signature'
+        clipper_exchange_address:
+          type: string
+          description: The address of the Blade exchange contract where the deposit is being made.
+        deposit_amounts:
+          type: array
+          items:
+            type: string
+          description: A list of the amounts to be deposited for each asset. If an asset was not provided in the request, the amount returned will be 0. For example, if 3 assets were provided in a 4-asset pool, the response will include an amount of 0 for the missing asset. For single asset deposit this field is not present
+        amount:
+          type: string
+          description: (Single-asset deposits only) The total amount of the single asset that is being deposited into the pool.
+        token:
+          type: string
+          description: (Single-asset deposits only) The address of the token that is being deposited into the pool.
+        extra_data:
+          type: string
+          description: Encode LP token price and prices list into ABI-compatible bytes. Only supported by the Katana pool.
+      required:
+      - sender
+      - good_until
+      - pool_tokens
+      - signature
+      - clipper_exchange_address
+  responses:
+    BadRequest:
+      description: Bad Request - Invalid data in the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden Error - Access denied
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InvalidInputData:
+      description: Invalid input data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errorMessage: Invalid input data
+            errorType: BadData
+            errorCode: 422
+            data:
+            - type: missing
+              loc:
+              - chain_id
+              msg: Field required
+              input:
+                input_amount: '18000'
+                input_asset_symbol: ETH
+                output_asset_symbol: WBTC
+                time_in_seconds: 60
+              url: https://errors.pydantic.dev/2.1/v/missing
+    ExternalServiceError:
+      description: External Service Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errorMessage: 'Auth: Access is forbidden'
+            errorType: Forbidden
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

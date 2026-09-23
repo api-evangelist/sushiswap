@@ -9,18 +9,16 @@ servers:
 - description: SwaggerHub API Auto Mocking
   url: https://virtserver.swaggerhub.com/sushi-labs/sushi/7.0.0
 tags:
-- name: price
+- name: Price
   description: All price endpoints
 paths:
   /price/v1/{chainId}:
     get:
       tags:
-      - price
+      - Price
       summary: returns prices for specified chainId
       operationId: prices
-      description: 'By passing in a chainId, you can get dollar prices for tokens addresses
-
-        '
+      description: By passing in a chainId, you can get dollar prices for tokens addresses
       parameters:
       - $ref: '#/components/parameters/chainId'
       responses:
@@ -41,12 +39,10 @@ paths:
   /price/v1/{chainId}/{tokenAddress}:
     get:
       tags:
-      - price
+      - Price
       summary: returns price for specified chainId and token
       operationId: price
-      description: 'By passing in a chainId and address, you can get a dollar price for specified token address
-
-        '
+      description: By passing in a chainId and address, you can get a dollar price for specified token address
       parameters:
       - $ref: '#/components/parameters/chainId'
       - $ref: '#/components/parameters/tokenAddress'
@@ -64,13 +60,6 @@ paths:
           description: internal server error
 components:
   parameters:
-    tokenAddress:
-      in: path
-      name: tokenAddress
-      description: token address
-      required: true
-      schema:
-        type: string
     chainId:
       in: path
       name: chainId
@@ -78,3 +67,10 @@ components:
       required: true
       schema:
         type: number
+    tokenAddress:
+      in: path
+      name: tokenAddress
+      description: token address
+      required: true
+      schema:
+        type: string
