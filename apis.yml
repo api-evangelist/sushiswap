@@ -65,7 +65,7 @@ apis:
   - type: Portal
     url: https://sushi.com/portal
 - aid: sushiswap:sushiswap-liquidity-providers-api
-  name: SushiSwap liquidity-providers API
+  name: SushiSwap Liquidity Providers API
   description: All liquidity provider endpoints
   humanURL: https://docs.sushi.com/api/examples/swap
   baseURL: https://api.sushi.com/price/v1
@@ -103,7 +103,7 @@ apis:
   - type: Portal
     url: https://sushi.com/portal
 - aid: sushiswap:sushiswap-price-api
-  name: SushiSwap price API
+  name: SushiSwap Price API
   description: All price endpoints
   humanURL: https://docs.sushi.com/api/examples/swap
   baseURL: https://api.sushi.com/price/v1
@@ -143,7 +143,7 @@ apis:
   - type: Portal
     url: https://sushi.com/portal
 - aid: sushiswap:sushiswap-swap-api
-  name: SushiSwap swap API
+  name: SushiSwap Swap API
   description: All swap endpoints
   humanURL: https://docs.sushi.com/api/examples/swap
   baseURL: https://api.sushi.com/price/v1
@@ -163,7 +163,7 @@ apis:
   - type: Portal
     url: https://sushi.com/portal
 - aid: sushiswap:sushiswap-token-api
-  name: SushiSwap token API
+  name: SushiSwap Token API
   description: All token endpoints
   humanURL: https://docs.sushi.com/api/examples/swap
   baseURL: https://api.sushi.com/price/v1

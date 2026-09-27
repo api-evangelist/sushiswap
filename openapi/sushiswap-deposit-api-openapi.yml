@@ -136,27 +136,79 @@ paths:
         '503':
           $ref: '#/components/responses/ExternalServiceError'
 components:
+  responses:
+    InvalidInputData:
+      description: Invalid input data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errorMessage: Invalid input data
+            errorType: BadData
+            errorCode: 422
+            data:
+            - type: missing
+              loc:
+              - chain_id
+              msg: Field required
+              input:
+                input_amount: '18000'
+                input_asset_symbol: ETH
+                output_asset_symbol: WBTC
+                time_in_seconds: 60
+              url: https://errors.pydantic.dev/2.1/v/missing
+    Forbidden:
+      description: Forbidden Error - Access denied
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ExternalServiceError:
+      description: External Service Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad Request - Invalid data in the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errorMessage: 'Auth: Access is forbidden'
+            errorType: Forbidden
   schemas:
-    ErrorResponse:
+    EIP2098Signature:
       type: object
+      description: A EIP 2098 'short signature' representation for the signature from the Blade Exchange server
       properties:
-        errorMessage:
-          type: string
-          description: Description of the error
-        errorType:
-          type: string
-          description: Type of the error
-        errorCode:
+        v:
           type: integer
-          description: Error code (returned only when we have a blade code for the error)
-        data:
-          type: array
-          items:
-            type: object
-          description: Additional error data (returned only when the input data is invalid)
+          description: Recovery identifier
+        r:
+          type: string
+          description: ECDSA signature r
+        s:
+          type: string
+          description: ECDSA signature s
       required:
-      - errorMessage
-      - errorType
+      - v
+      - r
+      - s
     DepositRequest:
       type: object
       properties:
@@ -207,23 +259,6 @@ components:
       - sender
       - pool_address
       - chain_id
-    EIP2098Signature:
-      type: object
-      description: A EIP 2098 'short signature' representation for the signature from the Blade Exchange server
-      properties:
-        v:
-          type: integer
-          description: Recovery identifier
-        r:
-          type: string
-          description: ECDSA signature r
-        s:
-          type: string
-          description: ECDSA signature s
-      required:
-      - v
-      - r
-      - s
     DepositResponse:
       type: object
       properties:
@@ -267,61 +302,26 @@ components:
       - pool_tokens
       - signature
       - clipper_exchange_address
-  responses:
-    BadRequest:
-      description: Bad Request - Invalid data in the request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: Forbidden Error - Access denied
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    InvalidInputData:
-      description: Invalid input data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errorMessage: Invalid input data
-            errorType: BadData
-            errorCode: 422
-            data:
-            - type: missing
-              loc:
-              - chain_id
-              msg: Field required
-              input:
-                input_amount: '18000'
-                input_asset_symbol: ETH
-                output_asset_symbol: WBTC
-                time_in_seconds: 60
-              url: https://errors.pydantic.dev/2.1/v/missing
-    ExternalServiceError:
-      description: External Service Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errorMessage: 'Auth: Access is forbidden'
-            errorType: Forbidden
-    InternalServerError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+          description: Description of the error
+        errorType:
+          type: string
+          description: Type of the error
+        errorCode:
+          type: integer
+          description: Error code (returned only when we have a blade code for the error)
+        data:
+          type: array
+          items:
+            type: object
+          description: Additional error data (returned only when the input data is invalid)
+      required:
+      - errorMessage
+      - errorType
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
