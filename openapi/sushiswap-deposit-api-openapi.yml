@@ -137,35 +137,8 @@ paths:
           $ref: '#/components/responses/ExternalServiceError'
 components:
   responses:
-    InvalidInputData:
-      description: Invalid input data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errorMessage: Invalid input data
-            errorType: BadData
-            errorCode: 422
-            data:
-            - type: missing
-              loc:
-              - chain_id
-              msg: Field required
-              input:
-                input_amount: '18000'
-                input_asset_symbol: ETH
-                output_asset_symbol: WBTC
-                time_in_seconds: 60
-              url: https://errors.pydantic.dev/2.1/v/missing
     Forbidden:
       description: Forbidden Error - Access denied
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    ExternalServiceError:
-      description: External Service Error
       content:
         application/json:
           schema:
@@ -191,7 +164,54 @@ components:
           example:
             errorMessage: 'Auth: Access is forbidden'
             errorType: Forbidden
+    InvalidInputData:
+      description: Invalid input data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errorMessage: Invalid input data
+            errorType: BadData
+            errorCode: 422
+            data:
+            - type: missing
+              loc:
+              - chain_id
+              msg: Field required
+              input:
+                input_amount: '18000'
+                input_asset_symbol: ETH
+                output_asset_symbol: WBTC
+                time_in_seconds: 60
+              url: https://errors.pydantic.dev/2.1/v/missing
+    ExternalServiceError:
+      description: External Service Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+          description: Description of the error
+        errorType:
+          type: string
+          description: Type of the error
+        errorCode:
+          type: integer
+          description: Error code (returned only when we have a blade code for the error)
+        data:
+          type: array
+          items:
+            type: object
+          description: Additional error data (returned only when the input data is invalid)
+      required:
+      - errorMessage
+      - errorType
     EIP2098Signature:
       type: object
       description: A EIP 2098 'short signature' representation for the signature from the Blade Exchange server
@@ -302,26 +322,6 @@ components:
       - pool_tokens
       - signature
       - clipper_exchange_address
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          type: string
-          description: Description of the error
-        errorType:
-          type: string
-          description: Type of the error
-        errorCode:
-          type: integer
-          description: Error code (returned only when we have a blade code for the error)
-        data:
-          type: array
-          items:
-            type: object
-          description: Additional error data (returned only when the input data is invalid)
-      required:
-      - errorMessage
-      - errorType
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
