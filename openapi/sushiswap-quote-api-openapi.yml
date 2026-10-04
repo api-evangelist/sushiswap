@@ -330,134 +330,24 @@ paths:
         '503':
           $ref: '#/components/responses/ExternalServiceError'
 components:
-  responses:
-    Forbidden:
-      description: Forbidden Error - Access denied
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad Request - Invalid data in the request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    QuoteProblems:
-      description: Quote problems
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errorMessage: 'Auth: Access is forbidden'
-            errorType: Forbidden
-    InvalidInputData:
-      description: Invalid input data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            errorMessage: Invalid input data
-            errorType: BadData
-            errorCode: 422
-            data:
-            - type: missing
-              loc:
-              - chain_id
-              msg: Field required
-              input:
-                input_amount: '18000'
-                input_asset_symbol: ETH
-                output_asset_symbol: WBTC
-                time_in_seconds: 60
-              url: https://errors.pydantic.dev/2.1/v/missing
-    ExternalServiceError:
-      description: External Service Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    QuoteSignResponse:
+    EIP2098Signature:
       type: object
+      description: A EIP 2098 'short signature' representation for the signature from the Blade Exchange server
       properties:
-        chain_id:
+        v:
           type: integer
-          description: Represents the ID of the chain
-        input_asset_address:
+          description: Recovery identifier
+        r:
           type: string
-          description: Contract address of the asset you want to provide for the swap
-        output_asset_address:
+          description: ECDSA signature r
+        s:
           type: string
-          description: Contract address of the asset you want to receive in the swap
-        input_amount:
-          type: string
-          description: Amount of assets to be exchanged
-        output_amount:
-          type: string
-          description: Amount of assets you will receive in the exchange
-        good_until:
-          type: string
-          description: Number of seconds that quotes live. It can also contained a packed representation of the state
-        destination_address:
-          type: string
-          description: Address will receive the output token
-        signature:
-          $ref: '#/components/schemas/EIP2098Signature'
-        clipper_exchange_address:
-          type: string
-          description: Blade contract address of the pool, is the address used when executing a transaction
-        calldata:
-          type: string
-          description: Bytes representation of the swap function and parameters to be sent directly to the `clipper_exchange_address` for execution. Only present when `calldata=true` in request.
-        id:
-          type: string
-          format: uuid
-          description: Internal identifier
-        input_value_in_usd:
-          type: number
-          format: float
-          description: Amount in dollars to be exchanged
-        output_value_in_usd:
-          type: number
-          format: float
-          description: Amount in dollars you will receive in the exchange
-        created_at:
-          type: integer
-          description: Unix Timestamp indicating the date and time when the quote was created
-        rate:
-          type: number
-          format: float
-          description: swap rate
+          description: ECDSA signature s
       required:
-      - chain_id
-      - input_asset_address
-      - output_asset_address
-      - input_amount
-      - output_amount
-      - good_until
-      - destination_address
-      - signature
-      - clipper_exchange_address
-      - id
-      - input_value_in_usd
-      - output_value_in_usd
-      - created_at
-      - rate
+      - v
+      - r
+      - s
     SignResponse:
       type: object
       properties:
@@ -500,26 +390,6 @@ components:
       - destination_address
       - signature
       - clipper_exchange_address
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          type: string
-          description: Description of the error
-        errorType:
-          type: string
-          description: Type of the error
-        errorCode:
-          type: integer
-          description: Error code (returned only when we have a blade code for the error)
-        data:
-          type: array
-          items:
-            type: object
-          description: Additional error data (returned only when the input data is invalid)
-      required:
-      - errorMessage
-      - errorType
     SignRequest:
       type: object
       properties:
@@ -556,23 +426,6 @@ components:
       required:
       - quote_id
       - destination_address
-    EIP2098Signature:
-      type: object
-      description: A EIP 2098 'short signature' representation for the signature from the Blade Exchange server
-      properties:
-        v:
-          type: integer
-          description: Recovery identifier
-        r:
-          type: string
-          description: ECDSA signature r
-        s:
-          type: string
-          description: ECDSA signature s
-      required:
-      - v
-      - r
-      - s
     QuoteResponse:
       type: object
       properties:
@@ -642,6 +495,153 @@ components:
         rate: 566.1947917
         input_asset_address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
         output_asset_address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+    QuoteSignResponse:
+      type: object
+      properties:
+        chain_id:
+          type: integer
+          description: Represents the ID of the chain
+        input_asset_address:
+          type: string
+          description: Contract address of the asset you want to provide for the swap
+        output_asset_address:
+          type: string
+          description: Contract address of the asset you want to receive in the swap
+        input_amount:
+          type: string
+          description: Amount of assets to be exchanged
+        output_amount:
+          type: string
+          description: Amount of assets you will receive in the exchange
+        good_until:
+          type: string
+          description: Number of seconds that quotes live. It can also contained a packed representation of the state
+        destination_address:
+          type: string
+          description: Address will receive the output token
+        signature:
+          $ref: '#/components/schemas/EIP2098Signature'
+        clipper_exchange_address:
+          type: string
+          description: Blade contract address of the pool, is the address used when executing a transaction
+        calldata:
+          type: string
+          description: Bytes representation of the swap function and parameters to be sent directly to the `clipper_exchange_address` for execution. Only present when `calldata=true` in request.
+        id:
+          type: string
+          format: uuid
+          description: Internal identifier
+        input_value_in_usd:
+          type: number
+          format: float
+          description: Amount in dollars to be exchanged
+        output_value_in_usd:
+          type: number
+          format: float
+          description: Amount in dollars you will receive in the exchange
+        created_at:
+          type: integer
+          description: Unix Timestamp indicating the date and time when the quote was created
+        rate:
+          type: number
+          format: float
+          description: swap rate
+      required:
+      - chain_id
+      - input_asset_address
+      - output_asset_address
+      - input_amount
+      - output_amount
+      - good_until
+      - destination_address
+      - signature
+      - clipper_exchange_address
+      - id
+      - input_value_in_usd
+      - output_value_in_usd
+      - created_at
+      - rate
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+          description: Description of the error
+        errorType:
+          type: string
+          description: Type of the error
+        errorCode:
+          type: integer
+          description: Error code (returned only when we have a blade code for the error)
+        data:
+          type: array
+          items:
+            type: object
+          description: Additional error data (returned only when the input data is invalid)
+      required:
+      - errorMessage
+      - errorType
+  responses:
+    Forbidden:
+      description: Forbidden Error - Access denied
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    QuoteProblems:
+      description: Quote problems
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad Request - Invalid data in the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InvalidInputData:
+      description: Invalid input data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errorMessage: Invalid input data
+            errorType: BadData
+            errorCode: 422
+            data:
+            - type: missing
+              loc:
+              - chain_id
+              msg: Field required
+              input:
+                input_amount: '18000'
+                input_asset_symbol: ETH
+                output_asset_symbol: WBTC
+                time_in_seconds: 60
+              url: https://errors.pydantic.dev/2.1/v/missing
+    ExternalServiceError:
+      description: External Service Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - Missing or invalid API key. Ensure you include a valid `x-api-key` header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errorMessage: 'Auth: Access is forbidden'
+            errorType: Forbidden
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

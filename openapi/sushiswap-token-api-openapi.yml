@@ -43,13 +43,6 @@ paths:
           description: server overloaded
 components:
   parameters:
-    tokenAddress:
-      in: path
-      name: tokenAddress
-      description: token address
-      required: true
-      schema:
-        type: string
     chainId:
       in: path
       name: chainId
@@ -57,3 +50,10 @@ components:
       required: true
       schema:
         type: number
+    tokenAddress:
+      in: path
+      name: tokenAddress
+      description: token address
+      required: true
+      schema:
+        type: string
