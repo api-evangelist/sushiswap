@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.sushi.com/openapi.yaml",
+ "requested_url": "https://docs.sushi.com/openapi.yaml",
+ "status": 200,
+ "content_type": "text/yaml; charset=utf-8",
+ "bytes": 17724,
+ "sha256": "6970ff1ac7580034ce7ac4b595a3123bdc7431441b7c84e06dee87f4f1aa7eaa",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
