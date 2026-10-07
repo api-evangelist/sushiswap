@@ -211,12 +211,6 @@ common:
   url: https://discord.gg/NVPXN4e
 - type: Twitter
   url: https://twitter.com/sushiswap
-- type: RateLimits
-  url: /rate-limits/rate-limits.md
-- type: Plans
-  url: /plans/plans.md
-- type: FinOps
-  url: /finops/finops.md
 maintainers:
 - FN: API Evangelist
   url: https://apievangelist.com
