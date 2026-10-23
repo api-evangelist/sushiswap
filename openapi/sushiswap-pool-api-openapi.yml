@@ -417,3 +417,9 @@ components:
       in: header
       name: x-api-key
       description: API key required for all endpoints. In order to prevent abuse on the API we implement rate limits on the requests, to overcome these limits as an aggregator get in contact with the [support team](mailto:aggregators@shipyardsoftware.org) to get API credentials.
+x-provenance:
+  method: harvested
+  publisher: SushiSwap
+  source: https://docs.sushi.com/blade-v2-openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
