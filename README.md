@@ -1,4 +1,4 @@
-# SushiSwap (sushiswap)
+# SushiSwap
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,105 +66,152 @@
 
 SushiSwap is a multi-chain decentralized exchange (DEX) protocol offering REST APIs for accessing liquidity pools, token prices, swap quotes, trading routes, and exchange analytics across 30+ blockchain networks. The Sushi API suite enables developers to integrate token pricing, generate swap quotes, and execute on-chain transactions programmatically via a unified base URL with per-chain routing.
 
-**APIs.json:** [https://www.sushi.com](https://www.sushi.com)
+**Areas:** DeFi · Decentralized Exchange · Cryptocurrency · Web3 · Blockchain · Multi-Chain · Liquidity · Swap · Token Pricing
 
-## Tags
+## SushiSwap on APIs.io
 
-- DeFi
-- Decentralized Exchange
-- DEX
-- Cryptocurrency
-- Web3
-- Blockchain
-- Multi-Chain
-- Liquidity
-- Swap
-- Token Pricing
+Everything profiled for SushiSwap is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/sushiswap/](https://apis.io/providers/sushiswap/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (7)
 
-- **Created:** 2026-06-13
-- **Modified:** 2026-06-13
+- [SushiSwap Deposit API](https://apis.io/apis/sushiswap/sushiswap-deposit-api/) — Liquidity pool deposit operations
+- [SushiSwap Liquidity Providers API](https://apis.io/apis/sushiswap/sushiswap-liquidity-providers-api/) — All liquidity provider endpoints
+- [SushiSwap Pool API](https://apis.io/apis/sushiswap/sushiswap-pool-api/) — Pool information and liquidity data endpoints
+- [SushiSwap Price API](https://apis.io/apis/sushiswap/sushiswap-price-api/) — All price endpoints
+- [SushiSwap Quote API](https://apis.io/apis/sushiswap/sushiswap-quote-api/) — Quote generation and signing
+- [SushiSwap Swap API](https://apis.io/apis/sushiswap/sushiswap-swap-api/) — All swap endpoints
+- [SushiSwap Token API](https://apis.io/apis/sushiswap/sushiswap-token-api/) — All token endpoints
 
-## APIs
+### Published properties
 
-### Sushi Price API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Returns token prices in USD across multiple chains. Provides both aggregate price maps for all tokens on a given chain and individual token price lookups by contract address.
+#### GraphQL (1)
 
-- **Human URL:** [https://docs.sushi.com/api/examples/swap](https://docs.sushi.com/api/examples/swap)
-- **Base URL:** `https://api.sushi.com/price/v1`
+GraphQL schemas.
 
-#### Tags
+- [SushiSwap GraphQL API](https://apis.io/graphqls/sushiswap/sushiswap-graphql/)
 
-- Token Pricing
-- USD
-- Multi-Chain
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://docs.sushi.com/api/examples/swap)
-- [OpenAPI](https://docs.sushi.com/blade-v2-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Graph Q L](graphql/sushiswap-graphql.md)
+- [Sushiswap Agentic Access](https://apis.io/agentic-access/sushiswap/sushiswap-agentic-access/)
 
-### Sushi Quote API
+#### JSON Schema (17)
 
-Generates swap quotes for a given token pair and amount on a specified chain. Returns estimated output amounts, price impact, and routing information without committing to an on-chain transaction.
+The data models the API reads and writes.
 
-- **Human URL:** [https://docs.sushi.com/api/examples/quote](https://docs.sushi.com/api/examples/quote)
-- **Base URL:** `https://api.sushi.com/quote/v7`
+- [DepositRequest](https://apis.io/schemas/sushiswap/depositrequest/)
+- [DepositResponse](https://apis.io/schemas/sushiswap/depositresponse/)
+- [EIP2098Signature](https://apis.io/schemas/sushiswap/eip2098signature/)
+- [ErrorResponse](https://apis.io/schemas/sushiswap/errorresponse/)
+- [OffChainAsset](https://apis.io/schemas/sushiswap/offchainasset/)
+- [OffChainPool](https://apis.io/schemas/sushiswap/offchainpool/)
+- [OffChainPoolData](https://apis.io/schemas/sushiswap/offchainpooldata/)
+- [OffChainPoolResponse](https://apis.io/schemas/sushiswap/offchainpoolresponse/)
+- [OnChainAsset](https://apis.io/schemas/sushiswap/onchainasset/)
+- [OnChainPool](https://apis.io/schemas/sushiswap/onchainpool/)
+- [OnChainPoolData](https://apis.io/schemas/sushiswap/onchainpooldata/)
+- [OnChainPoolResponse](https://apis.io/schemas/sushiswap/onchainpoolresponse/)
+- [Pair](https://apis.io/schemas/sushiswap/pair/)
+- [QuoteResponse](https://apis.io/schemas/sushiswap/quoteresponse/)
+- [QuoteSignResponse](https://apis.io/schemas/sushiswap/quotesignresponse/)
+- [SignRequest](https://apis.io/schemas/sushiswap/signrequest/)
+- [SignResponse](https://apis.io/schemas/sushiswap/signresponse/)
 
-#### Tags
+#### JSON-LD (2)
 
-- Quote
-- Swap
-- Price Impact
-- Routing
+Linked-data contexts for the provider's vocabulary.
 
-#### Properties
+- [Api Context](https://apis.io/jsonld/sushiswap/api/)
+- [context Context](https://apis.io/jsonld/sushiswap/context/)
 
-- [Documentation](https://docs.sushi.com/api/examples/quote)
-- [OpenAPI](https://docs.sushi.com/blade-v2-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+#### Collections (7)
 
-### Sushi Swap API
+Postman and Open Collection request collections.
 
-Generates complete swap transaction call data ready for on-chain execution. Integrates liquidity from Sushi V2/V3, Uniswap V2/V3, Curve, Algebra, Quickswap, Pancake, Camelot, and other sources via the Route Processor 4 (RP4) aggregator across 30+ EVM networks and Stellar.
+- [Blade Deposit API](https://apis.io/collections/sushiswap/open-sushiswap-deposit-api/)
+- [Blade Deposit liquidity-providers API](https://apis.io/collections/sushiswap/open-sushiswap-liquidity-providers-api/)
+- [Blade Deposit Pool API](https://apis.io/collections/sushiswap/open-sushiswap-pool-api/)
+- [Blade Deposit price API](https://apis.io/collections/sushiswap/open-sushiswap-price-api/)
+- [Blade Deposit Quote API](https://apis.io/collections/sushiswap/open-sushiswap-quote-api/)
+- [Blade Deposit swap API](https://apis.io/collections/sushiswap/open-sushiswap-swap-api/)
+- [Blade Deposit token API](https://apis.io/collections/sushiswap/open-sushiswap-token-api/)
 
-- **Human URL:** [https://docs.sushi.com/api/examples/swap](https://docs.sushi.com/api/examples/swap)
-- **Base URL:** `https://api.sushi.com/swap/v7`
+#### Governance rules (1)
 
-#### Tags
+Spectral rulesets for the provider's contracts.
 
-- Swap
-- DEX Aggregator
-- Liquidity
-- Multi-Chain
-- Transaction
+- [SushiSwap — jsonschema rules](https://apis.io/rules/sushiswap/sushiswap-jsonschema-spectral-rules/)
 
-#### Properties
+#### Security (2)
 
-- [Documentation](https://docs.sushi.com/api/examples/swap)
-- [OpenAPI](https://docs.sushi.com/blade-v2-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Portal](https://sushi.com/portal)
+Authentication, trust centre, and vulnerability disclosure.
 
-## Common Properties
+- [Sushiswap Authentication](https://apis.io/security/sushiswap/sushiswap-authentication/)
+- [Sushiswap Domain Security](https://apis.io/security/sushiswap/sushiswap-domain-security/)
 
-- [Portal](https://sushi.com/portal)
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.sushi.com/)
 - [Documentation](https://docs.sushi.com)
-- [OpenAPI](https://docs.sushi.com/blade-v2-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Plans](https://sushi.com/portal/pricing)
-- [GitHub Organization](https://github.com/sushiswap)
-- [Privacy Policy](https://www.sushi.com/privacy)
-- [Terms of Service](https://www.sushi.com/terms)
 - [Blog](https://www.sushi.com/blog)
-- [Discord](https://discord.gg/NVPXN4e)
-- [Twitter](https://twitter.com/sushiswap)
-- [Rate Limits](/rate-limits/rate-limits.md)
-- [Plans](/plans/plans.md)
-- [Fin Ops](/finops/finops.md)
+- [Terms of service](https://www.sushi.com/terms)
+- [Privacy policy](https://www.sushi.com/privacy)
+- [GitHub](https://github.com/sushiswap)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** API Evangelist
-**Email:** info@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 29.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 56.6 |
+| Contract governance | 9.8 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 38.1 |
+| Access clarity | 0.0 |
+
+**Agent readiness 22.3** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 15.7** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/sushiswap/](https://apis.io/providers/sushiswap/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for SushiSwap: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/sushiswap/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
